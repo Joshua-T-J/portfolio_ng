@@ -1,0 +1,224 @@
+.not-found {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.nf-inner {
+    text-align: center;
+    max-width: 560px;
+    position: relative;
+}
+
+/* ── 404 Number ───────────────────────── */
+.nf-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 32px;
+}
+
+.digit {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 18vw, 10rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--text);
+}
+
+/* Glitch on the "0" */
+.digit.glitch {
+    color: var(--accent);
+    position: relative;
+    animation: glitch 3s infinite;
+}
+
+.digit.glitch::before,
+.digit.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.digit.glitch::before {
+    color: #00d4ff;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    animation: glitch-top 2.5s infinite;
+    opacity: 0.7;
+}
+
+.digit.glitch::after {
+    color: #ff6b35;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    animation: glitch-bot 2.5s infinite;
+    opacity: 0.7;
+}
+
+@keyframes glitch {
+
+    0%,
+    90%,
+    100% {
+        transform: translate(0);
+    }
+
+    92% {
+        transform: translate(-3px, 2px);
+    }
+
+    94% {
+        transform: translate(3px, -2px);
+    }
+
+    96% {
+        transform: translate(-2px, 0);
+    }
+}
+
+@keyframes glitch-top {
+
+    0%,
+    88%,
+    100% {
+        transform: translate(0);
+    }
+
+    90% {
+        transform: translate(4px, 0);
+    }
+
+    92% {
+        transform: translate(-4px, 0);
+    }
+}
+
+@keyframes glitch-bot {
+
+    0%,
+    88%,
+    100% {
+        transform: translate(0);
+    }
+
+    90% {
+        transform: translate(-4px, 0);
+    }
+
+    92% {
+        transform: translate(4px, 0);
+    }
+}
+
+/* ── Spinning Rings ───────────────────── */
+.nf-rings {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 36px;
+}
+
+.ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+}
+
+.r1 {
+    border-top-color: var(--accent);
+    animation: spin 1.4s linear infinite;
+}
+
+.r2 {
+    inset: 12px;
+    border-right-color: var(--accent2);
+    animation: spin 2s linear infinite reverse;
+}
+
+.r3 {
+    inset: 24px;
+    border-bottom-color: var(--accent);
+    animation: spin 2.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Text ─────────────────────────────── */
+.nf-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+}
+
+.nf-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 40px;
+}
+
+/* ── Actions ──────────────────────────── */
+.nf-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 14px 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 1, 79, 0.35);
+}
+
+.btn-contact {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 13px 32px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: border-color var(--transition), color var(--transition);
+}
+
+.btn-contact:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}

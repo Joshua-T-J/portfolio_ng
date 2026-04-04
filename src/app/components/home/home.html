@@ -19,12 +19,7 @@
                 }
             </h2>
 
-            <p class="hero-bio">
-                {{
-                About?.About ??
-                'Self-motivated, highly passionate and hardworking full-stack developer looking for opportunities to work in a challenging organization. Eager to learn new technologies and methodologies.'
-                }}
-            </p>
+            <p class="hero-bio"> {{ AboutText() }} </p>
 
             <div class="hero-cta">
                 <button class="btn-primary" (click)="scrollToContact()">
@@ -73,11 +68,11 @@
         <!-- Right Stats -->
         <div class="hero-stats">
             <div class="stat-card">
-                <div class="stat-num">2<span class="accent">+</span></div>
+                <div class="stat-num">{{ Experience() }}<span class="accent">+</span></div>
                 <div class="stat-lbl">Years Experience</div>
             </div>
             <div class="stat-card">
-                <div class="stat-num">10<span class="accent">+</span></div>
+                <div class="stat-num">{{ Projects() }}<span class="accent">+</span></div>
                 <div class="stat-lbl">Projects Built</div>
             </div>
             <div class="stat-card">

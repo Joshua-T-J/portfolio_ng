@@ -503,6 +503,7 @@ header.scrolled {
 
 .mobile-menu.open {
   max-height: 400px;
+  display: flex;
 }
 
 .mobile-link {
@@ -533,10 +534,9 @@ header.scrolled {
     display: none;
   }
 
-  .mobile-menu {
+  /*  .mobile-menu {
     display: flex;
-  }
-
+  } */
   .nav-inner {
     padding: 0 24px;
   }
@@ -1026,6 +1026,7 @@ footer {
   align-items: center;
   gap: 6px;
   transition: color var(--transition);
+  cursor: pointer;
 }
 
 .footer-top-link:hover {

@@ -1,1 +1,31 @@
-<p>page-not-found works!</p>
+<div class="not-found">
+    <div class="nf-inner">
+        <!-- Animated 404 -->
+        <div class="nf-number" aria-hidden="true">
+            <span class="digit">4</span>
+            <span class="digit glitch" data-text="0">0</span>
+            <span class="digit">4</span>
+        </div>
+
+        <div class="nf-rings" aria-hidden="true">
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
+            <div class="ring r3"></div>
+        </div>
+
+        <h1 class="nf-title">Page Not Found</h1>
+        <p class="nf-desc">
+            Looks like you've ventured into uncharted territory.<br />
+            The page you're looking for doesn't exist or has been moved.
+        </p>
+
+        <div class="nf-actions">
+            <a class="btn-home" routerLink="/">
+                <i class="bi bi-house"></i> Back to Home
+            </a>
+            <a class="btn-contact" routerLink="/" fragment="contact_form">
+                Contact Me
+            </a>
+        </div>
+    </div>
+</div>

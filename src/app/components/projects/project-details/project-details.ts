@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { Contentful } from '../../../services/contentful';
 import { Common } from '../../../services/common';
@@ -8,7 +8,7 @@ import { ProjectLoading } from '../../../shared/components/project-loading/proje
 
 @Component({
   selector: 'app-project-details',
-  imports: [NgOptimizedImage, ProjectLoading],
+  imports: [NgOptimizedImage, ProjectLoading, RouterLink],
   templateUrl: './project-details.html',
   styleUrl: './project-details.scss',
 })

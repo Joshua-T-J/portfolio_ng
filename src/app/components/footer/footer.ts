@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class Footer {
   currentYear = new Date().getFullYear();
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

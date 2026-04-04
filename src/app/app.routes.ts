@@ -9,10 +9,12 @@ export const routes: Routes = [
     path: 'project-details/:id',
     loadComponent: () =>
       import('./components/projects/project-details/project-details').then((m) => m.ProjectDetails),
+    title: 'Joshua T J | Software Engineer | Portfolio - Project Details',
   },
   {
     path: '**',
     loadComponent: () =>
       import('./components/page-not-found/page-not-found').then((m) => m.PageNotFound),
+    title: 'Joshua T J | Software Engineer | Portfolio - Page Not Found',
   },
 ];

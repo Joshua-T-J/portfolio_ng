@@ -12,9 +12,10 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { CanvasAnimation } from './services/canvas-animation';
 import { NgClass } from '@angular/common';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -22,22 +23,22 @@ import { Footer } from './components/footer/footer';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App implements OnInit, AfterViewInit, OnDestroy {
-  protected readonly title = signal('PortfolioNg');
+export class App implements AfterViewInit, OnDestroy {
+  protected readonly title = signal('Joshua T J | Software Engineer | Portfolio - Home');
   sideBarOpen = false;
   themeSwitch = new FormControl(true);
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private canvasService: CanvasAnimation,
+    private titleService: Title,
   ) {
     const saved = localStorage.getItem('theme') as 'dark' | 'light' | null;
     const theme = saved ?? 'dark';
     this.document.documentElement.setAttribute('data-theme', theme);
     this.themeSwitch.setValue(theme === 'dark');
+    this.titleService.setTitle(this.title());
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const theme = (localStorage.getItem('theme') as 'dark' | 'light') ?? 'dark';

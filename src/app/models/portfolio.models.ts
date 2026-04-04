@@ -6,6 +6,8 @@ export interface ISkillIcon {
 export interface IAbout {
   About?: string;
   Quotes?: string[];
+  Projects?: number | string;
+  Experience?: number | string;
 }
 
 export interface ISkillItem {

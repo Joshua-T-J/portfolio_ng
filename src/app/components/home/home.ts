@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 import { ISkillIcon, IAbout } from '../../models/portfolio.models';
 import { Contentful } from '../../services/contentful';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -12,12 +12,6 @@ import { NgClass, SlicePipe } from '@angular/common';
   styleUrl: './home.scss',
 })
 export class Home implements OnInit, OnDestroy {
-  // Typewriter
-  toRotate: string[] = [
-    'A Full-Stack Developer.',
-    'And a Photographer.',
-    'I Adore Exploring New Things.',
-  ];
   txt = signal('');
   fullTxt = signal('');
   isDeleting = false;
@@ -37,19 +31,34 @@ export class Home implements OnInit, OnDestroy {
   ];
 
   showMore = false;
-  About: IAbout | undefined;
+  About = signal<IAbout | undefined>(undefined);
+  AboutText = computed<string>(
+    () =>
+      this.About()?.About ??
+      'Self-motivated, highly passionate and hardworking full-stack developer looking for opportunities to work in a challenging organization. Eager to learn new technologies and methodologies.',
+  );
+  // Typewriter
+  toRotate = computed(
+    () =>
+      this.About()?.Quotes ?? [
+        'A Full-Stack Developer.',
+        'And a Photographer.',
+        'I Adore Exploring New Things.',
+      ],
+  );
+  Experience = computed<string | number>(() => this.About()?.Experience ?? 3);
+  Projects = computed<string | number>(() => this.About()?.Projects ?? 10);
 
   constructor(private contentfulService: Contentful) {}
 
   ngOnInit(): void {
     this.contentfulService.getResume().subscribe({
       next: (res) => {
-        this.About = res.find((item: any) => item.fields.type === 'About')?.fields?.[
-          'resumeDetails'
-        ] as IAbout;
-        if (this.About?.Quotes?.length) {
-          this.toRotate = this.About.Quotes;
-        }
+        this.About.set(
+          res.find((item: any) => item.fields.type === 'About')?.fields?.[
+            'resumeDetails'
+          ] as IAbout,
+        );
         this.tick();
       },
       error: () => this.tick(), // still start typewriter even if CMS fails
@@ -61,8 +70,8 @@ export class Home implements OnInit, OnDestroy {
   }
 
   tick(): void {
-    const i = this.loopNum % this.toRotate.length;
-    this.fullTxt.set(this.toRotate[i]);
+    const i = this.loopNum % this.toRotate().length;
+    this.fullTxt.set(this.toRotate()[i]);
 
     if (this.isDeleting) {
       this.txt.set(this.fullTxt().substring(0, this.txt().length - 1));
