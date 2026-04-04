@@ -1,0 +1,22 @@
+<section class="features" id="features-section">
+    <div class="section-wrap">
+        <div class="section-tag">
+            <span class="tag-line"></span>Features
+        </div>
+        <h2 class="section-h2">What I <em>Do</em></h2>
+
+        <div class="features-grid">
+            @for (feat of features; track feat.title; let i = $index) {
+            <div
+                class="feat-card"
+                [style.animation-delay]="i * 120 + 'ms'">
+                <div class="feat-icon-wrap">
+                    <i class="bi {{ feat.icon }}"></i>
+                </div>
+                <h3>{{ feat.title }}</h3>
+                <p>{{ feat.description }}</p>
+            </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,16 @@
+<div class="social-icons-wrap">
+    <p class="icons-label">Find with me</p>
+    <div class="icons-row">
+        @for (item of socialIcons; track item.name) {
+        <a
+            class="icon-btn"
+            [href]="item.link"
+            target="_blank"
+            [matTooltip]="item.name"
+            matTooltipPosition="above"
+            [attr.aria-label]="item.name">
+            <i class="bi" [ngClass]="item.icon"></i>
+        </a>
+        }
+    </div>
+</div>

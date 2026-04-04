@@ -1,0 +1,24 @@
+@switch (data.Type) {
+@case (alertTypes.SUCCESS) {
+<span matSnackBarLabel class="alert-label">
+    <i class="bi bi-check-circle-fill" style="color: var(--clr-success);"></i>
+    {{ data.Message }}
+</span>
+<span matSnackBarActions>
+    <button mat-icon-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">
+        <mat-icon>close</mat-icon>
+    </button>
+</span>
+}
+@case (alertTypes.ERROR) {
+<span matSnackBarLabel class="alert-label">
+    <i class="bi bi-exclamation-circle-fill" style="color: var(--clr-error);"></i>
+    {{ data.Message }}
+</span>
+<span matSnackBarActions>
+    <button mat-icon-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">
+        <mat-icon>close</mat-icon>
+    </button>
+</span>
+}
+}

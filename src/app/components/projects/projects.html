@@ -1,0 +1,75 @@
+<section class="projects" id="projects-section">
+    <div class="section-wrap">
+        <div class="section-tag">
+            <span class="tag-line"></span>Projects
+        </div>
+        <h2 class="section-h2">What I <em>Built</em></h2>
+
+        <!-- Loading skeletons -->
+        @if (commonService.getLoading()) {
+        <div class="projects-grid">
+            @for (item of [1, 2, 3]; track $index) {
+            <app-loading-card></app-loading-card>
+            }
+        </div>
+        }
+
+        <!-- Projects grid -->
+        @if (!commonService.getLoading()) {
+        <div class="projects-grid">
+            @for (
+            item of (showMore() ? projects : (projects | slice: 0 : 3));
+            track $index
+            ) {
+            <div
+                class="proj-card"
+                [routerLink]="['project-details', item.fields.projectId]"
+                role="link"
+                tabindex="0"
+                (keydown.enter)="$event.preventDefault()">
+                <div class="proj-img-wrap">
+                    @if (item.fields.image?.fields?.file?.url) {
+                    <img
+                        class="proj-img"
+                        [ngSrc]="item.fields.image.fields.file.url"
+                        [alt]="item.fields.projectType"
+                        height="300"
+                        width="400"
+                        priority="false" />
+                    } @else {
+                    <div class="proj-img-placeholder">
+                        <i class="bi bi-code-square"></i>
+                    </div>
+                    }
+                </div>
+
+                <div class="proj-body">
+                    <p class="proj-tag">{{ item.fields.projectType }}</p>
+                    <h3 class="proj-title">
+                        {{ item.fields.description }}
+                        <span class="proj-arrow">
+                            <i class="bi bi-arrow-up-right"></i>
+                        </span>
+                    </h3>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Toggle more / less -->
+        <div class="toggle-row">
+            <button
+                class="toggle-btn"
+                [disabled]="commonService.getLoading()"
+                [matTooltip]="showMore() ? 'Show less' : 'Show more'"
+                matTooltipPosition="right"
+                (click)="toggleMore()">
+                <i
+                    class="bi"
+                    [ngClass]="showMore() ? 'bi-chevron-double-up' : 'bi-chevron-double-down'"></i>
+                {{ showMore() ? 'Show Less' : 'Show More' }}
+            </button>
+        </div>
+        }
+    </div>
+</section>

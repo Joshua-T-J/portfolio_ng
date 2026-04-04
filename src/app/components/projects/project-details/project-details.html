@@ -1,0 +1,62 @@
+<div class="project-details-page">
+    <!-- Loading / empty state -->
+    @if (!projectDetails() || projectDetails()?.length === 0) {
+    <app-project-loading [show]="projectDetails()?.length === 0"></app-project-loading>
+    }
+
+    <!-- Project entries -->
+    @for (item of projectDetails(); track $index; let first = $first, last = $last) {
+    <article class="project-entry" [class.first]="first">
+        @if (first) {
+        <div class="entry-breadcrumb">
+            <a routerLink="/" fragment="projects" class="back-link">
+                <i class="bi bi-arrow-left"></i> All Projects
+            </a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">{{ item?.fields?.projectTypeName }}</span>
+        </div>
+        }
+
+        <div class="entry-grid">
+            <!-- Image -->
+            <div class="entry-img-wrap">
+                <img
+                    class="entry-img"
+                    [ngSrc]="item?.fields?.projectImageMain?.fields?.file?.url || placeholderImage"
+                    height="400"
+                    width="500"
+                    [alt]="item?.fields?.projectName"
+                    priority="false" />
+            </div>
+
+            <!-- Content -->
+            <div class="entry-content">
+                <p class="entry-type">Project — {{ item?.fields?.projectTypeName }}</p>
+                <h2 class="entry-title">{{ item?.fields?.projectName }}</h2>
+
+                <p class="entry-desc">{{ item?.fields?.projectDescription1 }}</p>
+                @if (item?.fields?.projectDescription2) {
+                <p class="entry-desc">{{ item?.fields?.projectDescription2 }}</p>
+                }
+
+                @if (item?.fields?.projectUrl) {
+                <div class="entry-actions">
+                    <a
+                        class="btn-view"
+                        [href]="item?.fields?.projectUrl"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        View Project
+                        <span class="material-symbols-outlined">open_in_new</span>
+                    </a>
+                </div>
+                }
+            </div>
+        </div>
+
+        @if (!last) {
+        <div class="entry-divider"></div>
+        }
+    </article>
+    }
+</div>

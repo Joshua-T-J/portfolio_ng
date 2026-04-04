@@ -1,0 +1,148 @@
+.shimmer {
+    background: linear-gradient(90deg, var(--surface2) 25%, var(--surface) 50%, var(--surface2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-wrap {
+    padding: 24px 0;
+}
+
+.sk-row {
+    display: flex;
+    gap: 32px;
+}
+
+.sk-img {
+    width: 280px;
+    height: 200px;
+    border-radius: var(--radius);
+    flex-shrink: 0;
+}
+
+.sk-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 8px;
+}
+
+.sk-line {
+    height: 14px;
+    border-radius: 6px;
+}
+
+.sk-short {
+    width: 40%;
+}
+
+.sk-medium {
+    width: 65%;
+}
+
+/* No-data */
+.no-data-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 48px 24px;
+}
+
+.no-data-box {
+    text-align: center;
+    max-width: 480px;
+}
+
+.spinner-rings {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 32px;
+}
+
+.ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: spin 2s linear infinite;
+}
+
+.ring-1 {
+    border-top-color: var(--accent);
+    animation-duration: 1.4s;
+}
+
+.ring-2 {
+    inset: 10px;
+    border-right-color: var(--accent2);
+    animation-duration: 2s;
+    animation-direction: reverse;
+}
+
+.ring-3 {
+    inset: 20px;
+    border-bottom-color: var(--accent);
+    animation-duration: 2.6s;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.no-data-box h2 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.no-data-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 12px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+.back-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+@media (max-width: 600px) {
+    .sk-img {
+        width: 120px;
+        height: 100px;
+    }
+}

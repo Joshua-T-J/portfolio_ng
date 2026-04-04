@@ -1,0 +1,43 @@
+<div class="page-sections">
+
+    <div id="home">
+        <app-home></app-home>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div id="features">
+        <app-features></app-features>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div id="projects">
+        @defer (on viewport) {
+        <app-projects></app-projects>
+        } @placeholder {
+        <div class="defer-placeholder">
+            <app-loading-card></app-loading-card>
+        </div>
+        }
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div id="resume">
+        @defer (on viewport) {
+        <app-resume></app-resume>
+        } @placeholder {
+        <div class="defer-placeholder">
+            <app-loading-card></app-loading-card>
+        </div>
+        }
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div id="contact_form">
+        <app-contact></app-contact>
+    </div>
+
+</div>

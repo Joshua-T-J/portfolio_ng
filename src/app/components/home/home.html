@@ -1,0 +1,89 @@
+<section class="home" id="home-section">
+    <div class="home-inner">
+        <!-- Left Content -->
+        <div class="home-content">
+            <div class="eyebrow">
+                <span class="eyebrow-line"></span>
+                Welcome to my world
+            </div>
+
+            <h1 class="hero-h1">
+                Hi, I'm<br />
+                <span class="name-accent">Joshua T J</span>
+            </h1>
+
+            <h2 class="typewrite-wrap">
+                <span class="wrap">{{ txt() }}</span>
+                @if (txt().length === 0) {
+                <span class="hidden-caret">{{ fullTxt() }}</span>
+                }
+            </h2>
+
+            <p class="hero-bio">
+                {{
+                About?.About ??
+                'Self-motivated, highly passionate and hardworking full-stack developer looking for opportunities to work in a challenging organization. Eager to learn new technologies and methodologies.'
+                }}
+            </p>
+
+            <div class="hero-cta">
+                <button class="btn-primary" (click)="scrollToContact()">
+                    Get in Touch
+                </button>
+                <button class="btn-outline" (click)="scrollToResume()">
+                    View Resume
+                </button>
+            </div>
+
+            <!-- Skills row -->
+            <div class="skills-row">
+                <app-social-media-icons></app-social-media-icons>
+
+                <div class="skills-chips-wrap">
+                    <p class="skills-label">Best Skill On</p>
+                    <div class="skills-chips">
+                        @for (
+                        item of (showMore ? skillsIcons : (skillsIcons | slice: 0 : 4));
+                        track item.title;
+                        let i = $index
+                        ) {
+                        <span
+                            class="skill-chip fade-in"
+                            [matTooltip]="item.title"
+                            matTooltipPosition="above"
+                            [style.animation-delay]="i * 80 + 'ms'">
+                            <img [src]="item.iconSrc" [alt]="item.title" />
+                        </span>
+                        }
+
+                        <button
+                            class="chip-toggle"
+                            [matTooltip]="showMore ? 'Show less' : 'Show more'"
+                            matTooltipPosition="above"
+                            (click)="toggleMore()"
+                            (keydown.enter)="toggleMore()"
+                            [attr.aria-label]="showMore ? 'Show less skills' : 'Show more skills'">
+                            <i class="bi" [ngClass]="showMore ? 'bi-dash' : 'bi-plus'"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Stats -->
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-num">2<span class="accent">+</span></div>
+                <div class="stat-lbl">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">10<span class="accent">+</span></div>
+                <div class="stat-lbl">Projects Built</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">∞</div>
+                <div class="stat-lbl">Passion for Code</div>
+            </div>
+        </div>
+    </div>
+</section>

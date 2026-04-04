@@ -1,0 +1,45 @@
+<header [class.scrolled]="scrolled">
+    <div class="nav-inner">
+        <!-- Logo -->
+        <a class="nav-logo" routerLink="/" (click)="scrollToFragment('home')">
+            <span class="accent">J</span>oshua TJ
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="nav-links" role="navigation" aria-label="Main navigation">
+            @for (link of navLinks; track link.fragment) {
+            <a
+                class="nav-link"
+                routerLink="/"
+                [fragment]="link.fragment"
+                (click)="scrollToFragment(link.fragment)">
+                {{ link.label }}
+            </a>
+            }
+        </nav>
+
+        <!-- Hamburger -->
+        <button
+            class="nav-toggle"
+            [class.open]="mobileMenuOpen"
+            (click)="toggleMenu()"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="mobileMenuOpen">
+            <i class="bi" [ngClass]="mobileMenuOpen ? 'bi-x-lg' : 'bi-list'"></i>
+        </button>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="mobile-menu" [class.open]="mobileMenuOpen" role="menu">
+        @for (link of navLinks; track link.fragment) {
+        <a
+            class="mobile-link"
+            routerLink="/"
+            [fragment]="link.fragment"
+            (click)="scrollToFragment(link.fragment)"
+            role="menuitem">
+            {{ link.label }}
+        </a>
+        }
+    </div>
+</header>

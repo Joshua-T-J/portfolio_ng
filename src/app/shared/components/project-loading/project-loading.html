@@ -1,0 +1,30 @@
+@if (commonService.getLoading()) {
+<div class="skeleton-wrap" aria-hidden="true">
+    <div class="sk-row">
+        <div class="shimmer sk-img"></div>
+        <div class="sk-lines">
+            <div class="shimmer sk-line sk-short"></div>
+            <div class="shimmer sk-line"></div>
+            <div class="shimmer sk-line sk-medium"></div>
+            <div class="shimmer sk-line sk-short"></div>
+        </div>
+    </div>
+</div>
+}
+
+@if (show()) {
+<div class="no-data-wrap">
+    <div class="no-data-box">
+        <div class="spinner-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+        </div>
+        <h2>Innovation in Progress</h2>
+        <p>Pioneering solutions are being meticulously crafted in my digital workshop. Brace yourself for the unveiling of cutting-edge projects!</p>
+        <a class="back-btn" routerLink="/" fragment="projects">
+            <i class="bi bi-arrow-left"></i> Go Back
+        </a>
+    </div>
+</div>
+}

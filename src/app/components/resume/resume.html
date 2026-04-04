@@ -1,0 +1,158 @@
+<section class="resume" id="resume">
+    <div class="section-wrap">
+        <div class="section-tag"><span class="tag-line"></span>About Me</div>
+        <h2 class="section-h2">My <em>Resume</em></h2>
+
+
+        <div class="tab-bar" role="tablist">
+            @for (tab of resumeTabs; track tab) {
+            <button
+                class="tab-btn"
+                [class.active]="activeTab() === tab"
+                role="tab"
+                [attr.aria-selected]="activeTab() === tab"
+                (click)="switchTab(tab)">
+                {{ tab | titlecase }}
+            </button>
+            }
+        </div>
+
+
+        @if (activeTab() === 'experience') {
+        <div class="tab-panel" role="tabpanel">
+            <h3 class="panel-title">Experience</h3>
+            <div class="resume-grid">
+                @for (item of experience(); track $index) {
+                <div class="resume-card">
+                    <p class="card-company">
+                        @if (item.Link) {
+                        <a [href]="item.Link" target="_blank" rel="noopener">{{ item.Company }}</a>
+                        } @else {
+                        {{ item.Company }}
+                        }
+                    </p>
+                    <p class="card-role">{{ item.Designation }} &nbsp;({{ item.Year }})</p>
+                    <div class="card-divider"></div>
+                    <p class="card-info">
+                        {{ getTruncatedInfo(item.Info, item.Company) }}
+                        @if (needsReadMore(item.Info)) {
+                        <button
+                            class="read-more-btn"
+                            (click)="toggleExpand(item.Company)">
+                            {{ isExpanded[item.Company] ? 'Read Less' : 'Read More' }}
+                        </button>
+                        }
+                    </p>
+                </div>
+                }
+                @empty {
+                <p class="empty-msg">Experience details loading…</p>
+                }
+            </div>
+        </div>
+        }
+
+
+        @if (activeTab() === 'education') {
+        <div class="tab-panel" role="tabpanel">
+            <h3 class="panel-title">Educational Qualification</h3>
+            <div class="resume-grid">
+                @for (item of education(); track $index) {
+                <div class="resume-card">
+                    <p class="card-company">{{ item.Title }}</p>
+                    <p class="card-role">{{ item.Board }}</p>
+                    <div class="card-divider"></div>
+                    @if (item.Quote) {
+                    <p class="card-info">{{ item.Quote }}</p>
+                    }
+                </div>
+                }
+                @empty {
+                <p class="empty-msg">Education details loading…</p>
+                }
+            </div>
+        </div>
+        }
+
+
+        @if (activeTab() === 'skills') {
+        <div class="tab-panel" role="tabpanel">
+            <h3 class="panel-title">Professional Skills</h3>
+            <div class="resume-grid">
+                <div class="resume-card">
+                    <p class="skills-group-title">Languages &amp; Frameworks</p>
+                    @for (item of languages(); track $index) {
+                    <div class="skill-bar-wrap">
+                        <div class="skill-bar-label">
+                            <span>{{ item.Title }}</span>
+                            <span class="pct">{{ item.Percentage }}</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div
+                                class="skill-bar-fill"
+                                [style.width]="item.Percentage"></div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="resume-card">
+                    <p class="skills-group-title">Other Skills</p>
+                    @for (item of otherSkills(); track $index) {
+                    <div class="skill-bar-wrap">
+                        <div class="skill-bar-label">
+                            <span>{{ item.Title }}</span>
+                            <span class="pct">{{ item.Percentage }}</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div
+                                class="skill-bar-fill"
+                                [style.width]="item.Percentage"></div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+
+
+        @if (activeTab() === 'more') {
+        <div class="tab-panel" role="tabpanel">
+            <h3 class="panel-title">More About Me</h3>
+            <div class="resume-grid">
+
+                @for (item of certifications()?.fields?.resumeDetails; track $index) {
+                <div class="resume-card">
+                    <p class="card-company">Certification</p>
+                    <p class="card-role">{{ item.Title }}</p>
+                    <div class="card-divider"></div>
+                    <p class="card-info">{{ item.ConductedBy }}</p>
+                    <p class="card-info">{{ item.Date }}</p>
+                </div>
+                }
+                <div class="resume-card">
+                    <p class="card-company">Hobbies</p>
+                    <div class="card-divider"></div>
+                    <p class="card-info">Watching films</p>
+                    <p class="card-info">Listening to music</p>
+                    <p class="card-info">Photography</p>
+                </div>
+                <div class="resume-card">
+                    <p class="card-company">Strengths</p>
+                    <div class="card-divider"></div>
+                    <p class="card-info">Flexible and adaptable</p>
+                    <p class="card-info">Ambitious</p>
+                    <p class="card-info">Loyal and patient</p>
+                </div>
+            </div>
+        </div>
+        }
+
+
+        <div class="download-row">
+            <a [href]="pdfUrl()" class="btn-download" target="_blank" rel="noopener">
+                View Resume &nbsp;<i class="bi bi-file-earmark-pdf"></i>
+            </a>
+        </div>
+    </div>
+</section>
