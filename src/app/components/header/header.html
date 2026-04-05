@@ -1,4 +1,4 @@
-<header [class.scrolled]="scrolled">
+<header [class.scrolled]="scrolled()">
     <div class="nav-inner">
         <!-- Logo -->
         <a class="nav-logo" routerLink="/" (click)="scrollToFragment('home')">
@@ -21,16 +21,16 @@
         <!-- Hamburger -->
         <button
             class="nav-toggle"
-            [class.open]="mobileMenuOpen"
+            [class.open]="mobileMenuOpen()"
             (click)="toggleMenu()"
             aria-label="Toggle navigation"
-            [attr.aria-expanded]="mobileMenuOpen">
-            <i class="bi" [ngClass]="mobileMenuOpen ? 'bi-x-lg' : 'bi-list'"></i>
+            [attr.aria-expanded]="mobileMenuOpen()">
+            <i class="bi" [ngClass]="mobileMenuOpen() ? 'bi-x-lg' : 'bi-list'"></i>
         </button>
     </div>
 
     <!-- Mobile drawer -->
-    <div class="mobile-menu" [class.open]="mobileMenuOpen" role="menu">
+    <div class="mobile-menu" [class.open]="mobileMenuOpen()" role="menu">
         @for (link of navLinks; track link.fragment) {
         <a
             class="mobile-link"

@@ -71,7 +71,7 @@ export class Contact implements OnInit {
   private openSnack(message: string, type: AlertTypes): void {
     this.snackBar.openFromComponent(Alert, {
       data: { Type: type, Message: message },
-      duration: 5000,
+      duration: 10000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
     });

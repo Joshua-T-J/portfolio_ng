@@ -489,23 +489,7 @@ header.scrolled {
 }
 
 /* Mobile drawer */
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 24px 20px;
-  gap: 2px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease;
-}
-
-.mobile-menu.open {
-  max-height: 400px;
-  display: flex;
-}
-
+/* Animations are now in the header animations section below */
 .mobile-link {
   font-family: var(--font-display);
   font-size: 0.9rem;
@@ -525,7 +509,217 @@ header.scrolled {
   padding-left: 16px;
 }
 
-@media (max-width: 768px) {
+/* ── Logo Animation ────────────────────────────────────────── */
+.nav-logo {
+  animation: logoSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes logoSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Desktop Nav Links Animation ───────────────────────────── */
+.nav-links .nav-link {
+  animation: navLinkFadeIn 0.5s ease-out forwards;
+  opacity: 0;
+
+  &:nth-child(1) {
+    animation-delay: 0.15s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.23s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.31s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 0.39s;
+  }
+
+  &:nth-child(5) {
+    animation-delay: 0.47s;
+  }
+
+  &:nth-child(6) {
+    animation-delay: 0.55s;
+  }
+}
+
+@keyframes navLinkFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Hamburger Icon Animation ──────────────────────────────– */
+.nav-toggle {
+  position: relative;
+
+  i {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &.open i {
+    animation: iconRotateOpen 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  &:not(.open) i {
+    animation: iconRotateClose 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+}
+
+@keyframes iconRotateOpen {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes iconRotateClose {
+  from {
+    transform: rotate(90deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* ── Mobile Menu Animation ────────────────────────────────── */
+.mobile-menu {
+  flex-direction: column;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px 20px;
+  gap: 2px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.1s ease,
+    max-height 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &.open {
+    display: flex;
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* ── Mobile Link Stagger Animation ───────────────────────── */
+.mobile-menu.open .mobile-link {
+  animation: linkSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.16s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.22s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 0.28s;
+  }
+
+  &:nth-child(5) {
+    animation-delay: 0.34s;
+  }
+
+  &:nth-child(6) {
+    animation-delay: 0.4s;
+  }
+}
+
+/* Instantly hide links on close - no animation */
+.mobile-menu:not(.open) .mobile-link {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+@keyframes linkSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Mobile Link Hover Animation ──────────────────────────– */
+.mobile-link {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &:hover::before {
+    transform: scaleY(1);
+  }
+
+  &:hover {
+    animation: linkHoverPulse 0.3s ease-out;
+  }
+}
+
+@keyframes linkHoverPulse {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 900px) {
   .nav-toggle {
     display: flex;
   }
@@ -534,9 +728,6 @@ header.scrolled {
     display: none;
   }
 
-  /*  .mobile-menu {
-    display: flex;
-  } */
   .nav-inner {
     padding: 0 24px;
   }

@@ -75,6 +75,9 @@ export class Resume implements OnInit {
       ? this.resume().find((i) => i.fields.type === 'Skills')?.fields?.skills
       : [],
   );
+  activeCatSkills = computed(() => {
+    return this.skillCategories()[this.activeSkillCat]?.skills ?? [];
+  });
 
   // ── Software tools ────────────────────────────────────────
   tools = signal<IToolItem[]>([]);
@@ -140,6 +143,10 @@ export class Resume implements OnInit {
     this.activeTab.set(tab);
     if (tab === 'skills') {
       this.loadToolIcons();
+      // Delay bar animation until after the tab enter animation completes (0.6s delay + 0.5s duration = 1.1s)
+      setTimeout(() => this.barsAnimated.set(true), 1200);
+    } else {
+      this.barsAnimated.set(false);
     }
   }
 
@@ -162,7 +169,32 @@ export class Resume implements OnInit {
     this.barsAnimated.set(false);
     setTimeout(() => this.barsAnimated.set(true), 60);
   }
-  get activeCatSkills() {
-    return this.skillCategories()[this.activeSkillCat]?.skills ?? [];
+
+  downloadResume(ev: Event): void {
+    ev.preventDefault();
+    const pdfUrl = this.pdfUrl();
+
+    if (!pdfUrl || pdfUrl === '#') {
+      console.warn('PDF URL not available');
+      return;
+    }
+
+    // Fetch the PDF as a blob and trigger download
+    fetch(pdfUrl)
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch PDF');
+        return res.blob();
+      })
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Joshua_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      })
+      .catch((error) => console.error('Download failed:', error));
   }
 }

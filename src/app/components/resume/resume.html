@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="skill-bars-wrap">
-                        @for (skill of activeCatSkills; track skill.title; let i = $index) {
+                        @for (skill of activeCatSkills(); track skill.title; let i = $index) {
                         <div class="skill-row" [style.animation-delay]="i * 60 + 'ms'">
                             <div class="skill-meta">
                                 <span class="skill-name">{{ skill.title }}</span>
@@ -103,8 +103,8 @@
                                     class="skill-fill"
                                     [class.animate]="barsAnimated()"
                                     [style.--target-w]="skill.pct + '%'"
-                                    [style.width]="skill.pct + '%'"
-                                    [style.--bar-color]="skill.color"></div>
+                                    [style.--bar-color]="'var(--accent)'"
+                                    [style.width]="!barsAnimated() ? '0%' : undefined"></div>
                             </div>
                         </div>
                         }
@@ -115,9 +115,9 @@
                 <div class="skills-right">
                     <p class="panel-label">Skill Radar</p>
                     <div class="hex-grid">
-                        @for (skill of activeCatSkills; track skill.title) {
+                        @for (skill of activeCatSkills(); track skill.title) {
                         <div class="hex-cell">
-                            <div class="hex-bubble" [style.--bclr]="skill.color">
+                            <div class="hex-bubble" [style.--bclr]="'var(--accent)'">
                                 <div class="hex-inner">
                                     <span class="hex-pct">{{ skill.pct }}</span>
                                     <span class="hex-unit">%</span>
@@ -195,8 +195,8 @@
 
 
         <div class="download-row">
-            <a [href]="pdfUrl()" class="btn-download" target="_blank" rel="noopener">
-                View Resume &nbsp;<i class="bi bi-file-earmark-pdf"></i>
+            <a (click)="downloadResume($event)" class="btn-download" rel="noopener" noreferrer>
+                Download Resume &nbsp;<i class="bi bi-file-earmark-pdf"></i>
             </a>
         </div>
     </div>

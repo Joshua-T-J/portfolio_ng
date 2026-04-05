@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, DOCUMENT, HostListener, Inject, OnInit } from '@angular/core';
+import { Component, DOCUMENT, HostListener, Inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -9,8 +9,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.scss',
 })
 export class Header implements OnInit {
-  scrolled = false;
-  mobileMenuOpen = false;
+  scrolled = signal(false);
+  mobileMenuOpen = signal(false);
 
   readonly navLinks = [
     { label: 'Home', fragment: 'home' },
@@ -27,15 +27,23 @@ export class Header implements OnInit {
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    this.scrolled = window.scrollY > 40;
+    this.scrolled.set(window.scrollY > 40);
+  }
+
+  @HostListener('window:resize', [])
+  onResize(): void {
+    // Close mobile menu if window is resized back to desktop size
+    if (window.innerWidth > 900 && this.mobileMenuOpen()) {
+      this.mobileMenuOpen.set(false);
+    }
   }
 
   toggleMenu(): void {
-    this.mobileMenuOpen = !this.mobileMenuOpen;
+    this.mobileMenuOpen.set(!this.mobileMenuOpen());
   }
 
   closeMenu(): void {
-    this.mobileMenuOpen = false;
+    this.mobileMenuOpen.set(false);
   }
 
   scrollToFragment(fragment: string): void {
