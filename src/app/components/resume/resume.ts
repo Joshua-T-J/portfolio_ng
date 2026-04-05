@@ -11,7 +11,7 @@ type TabTypes = 'experience' | 'education' | 'skills' | 'more';
   templateUrl: './resume.html',
   styleUrl: './resume.scss',
 })
-export class Resume implements OnInit, AfterViewInit {
+export class Resume implements OnInit {
   activeTab = signal<TabTypes>('experience');
   resumeTabs = ['experience', 'education', 'skills', 'more'] as TabTypes[];
 
@@ -64,33 +64,13 @@ export class Resume implements OnInit, AfterViewInit {
     this.contentfulService.getResume().subscribe({
       next: (res) => {
         this.resume.set(res);
-        // this.filterByType();
       },
     });
   }
 
-  ngAfterViewInit(): void {}
-
-  // filterByType(): void {
-  //   this.skills = this.resume.find((i) => i.fields.type === 'Skills');
-  //   this.education = this.resume.find((i) => i.fields.type === 'Education');
-  //   this.certifications = this.resume.find((i) => i.fields.type === 'Certifications');
-  //   this.experience = this.resume.find((i) => i.fields.type === 'Experience');
-  // // }
-
   switchTab(tab: TabTypes): void {
     this.activeTab.set(tab);
   }
-
-  // filterSkills(): void {
-  //   this.languages =
-  //     this.skills?.fields?.resumeDetails?.filter((i: ISkillItem) => i.SkillType === 'Languages') ??
-  //     [];
-  //   this.otherSkills =
-  //     this.skills?.fields?.resumeDetails?.filter(
-  //       (i: ISkillItem) => i.SkillType === 'Other Skill',
-  //     ) ?? [];
-  // }
 
   getTruncatedInfo(info: string, company: string): string {
     const words = info.split(' ');

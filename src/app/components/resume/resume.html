@@ -19,7 +19,7 @@
 
 
         @if (activeTab() === 'experience') {
-        <div class="tab-panel" role="tabpanel">
+        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation" animate.leave="leave-animation">
             <h3 class="panel-title">Experience</h3>
             <div class="resume-grid">
                 @for (item of experience(); track $index) {
@@ -54,7 +54,7 @@
 
 
         @if (activeTab() === 'education') {
-        <div class="tab-panel" role="tabpanel">
+        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation">
             <h3 class="panel-title">Educational Qualification</h3>
             <div class="resume-grid">
                 @for (item of education(); track $index) {
@@ -76,7 +76,7 @@
 
 
         @if (activeTab() === 'skills') {
-        <div class="tab-panel" role="tabpanel">
+        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation">
             <h3 class="panel-title">Professional Skills</h3>
             <div class="resume-grid">
                 <div class="resume-card">
@@ -117,7 +117,7 @@
 
 
         @if (activeTab() === 'more') {
-        <div class="tab-panel" role="tabpanel">
+        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation">
             <h3 class="panel-title">More About Me</h3>
             <div class="resume-grid">
 
