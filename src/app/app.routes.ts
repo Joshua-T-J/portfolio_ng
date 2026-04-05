@@ -17,4 +17,10 @@ export const routes: Routes = [
       import('./components/page-not-found/page-not-found').then((m) => m.PageNotFound),
     title: 'Joshua T J | Software Engineer | Portfolio - Page Not Found',
   },
+  {
+    path: 'not-found',
+    loadComponent: () =>
+      import('./components/page-not-found/page-not-found').then((m) => m.PageNotFound),
+    title: 'Joshua T J | Software Engineer | Portfolio - Page Not Found',
+  },
 ];

@@ -140,7 +140,12 @@
                     @for (tool of tools(); track tool.name) {
                     <div class="tool-card" [style.--tclr]="tool.color">
                         <div class="tool-icon-wrap">
-                            <img [ngSrc]="tool.imageSrc" width="34" height="34" alt="{{ tool.name }}">
+                            @defer {
+                            @if (tool.iconUrl) {
+                            <img [ngSrc]="tool.iconUrl" [class.img-color-invert]="tool.name=='GitHub'"
+                                width="34" height="34" [alt]="tool.name">
+                            }
+                            }
                         </div>
                         <div class="tool-info">
                             <span class="tool-name">{{ tool.name }}</span>

@@ -1,14 +1,17 @@
-import { AfterViewInit, Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { ISkillItem } from '../../models/portfolio.models';
 import { Contentful } from '../../services/contentful';
 import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
+import { AssetFile } from 'contentful';
 
 type TabTypes = 'experience' | 'education' | 'skills' | 'more';
 export interface IToolItem {
   name: string;
   color: string; // accent hex for the icon
   category: string;
-  imageSrc: string; // Optional image source for the icon
+  iconUrl?: string;
+  imageSrc?: string; // Optional image source for the icon
+  iconId?: string; // Optional Contentful asset ID for the icon
 }
 
 export interface ISkillCategory {
@@ -74,7 +77,7 @@ export class Resume implements OnInit {
   );
 
   // ── Software tools ────────────────────────────────────────
-  tools = computed<IToolItem[]>(() => this.skillAndSoftwares()?.tools ?? []);
+  tools = signal<IToolItem[]>([]);
 
   // ── Skill categories  ──
   skillCategories = computed<ISkillCategory[]>(
@@ -85,10 +88,15 @@ export class Resume implements OnInit {
   barsAnimated = signal(false);
   isExpanded: Record<string, boolean> = {};
   readonly contentLimit = 25;
+  private toolIconsLoaded = false;
 
   constructor(private contentfulService: Contentful) {}
 
   ngOnInit(): void {
+    this.loadResumeDetails();
+  }
+
+  loadResumeDetails(): void {
     this.contentfulService.getResume().subscribe({
       next: (res) => {
         this.resume.set(res);
@@ -96,8 +104,43 @@ export class Resume implements OnInit {
     });
   }
 
+  private loadToolIcons(): void {
+    if (this.toolIconsLoaded) return; // Already loaded, don't repeat
+
+    const skillsEntry = this.resume().find((i) => i.fields.type === 'Skills');
+    const toolsData = skillsEntry?.fields?.skills?.tools ?? [];
+
+    // Update the tools signal
+    this.tools.set([...toolsData]);
+
+    toolsData.forEach((tool: IToolItem) => {
+      if (tool.iconId) {
+        this.contentfulService.getSkillsIcon(tool.iconId).subscribe({
+          next: (asset) => {
+            if (asset?.fields?.file?.url) {
+              tool.iconUrl = asset.fields.file.url as AssetFile['url'];
+              // Trigger signal update
+              this.tools.set([...this.tools()]);
+            }
+          },
+        });
+      } else if (tool.imageSrc) {
+        tool.iconUrl = tool.imageSrc;
+      }
+    });
+
+    this.toolIconsLoaded = true;
+  }
+
+  getToolIconSrc(tool: IToolItem): string {
+    return tool.iconUrl ?? '';
+  }
+
   switchTab(tab: TabTypes): void {
     this.activeTab.set(tab);
+    if (tab === 'skills') {
+      this.loadToolIcons();
+    }
   }
 
   getTruncatedInfo(info: string, company: string): string {

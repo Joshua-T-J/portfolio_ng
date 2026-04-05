@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
+import { catchError, switchMap } from 'rxjs';
 import { Contentful } from '../../../services/contentful';
 import { Common } from '../../../services/common';
 import { NgOptimizedImage } from '@angular/common';
@@ -20,6 +20,7 @@ export class ProjectDetails implements OnInit, AfterViewInit {
   constructor(
     private contentfulService: Contentful,
     private route: ActivatedRoute,
+    private router: Router,
     public commonService: Common,
   ) {}
 
@@ -30,6 +31,11 @@ export class ProjectDetails implements OnInit, AfterViewInit {
         switchMap((params: ParamMap) =>
           this.contentfulService.getProjectDetails(params.get('id') as string),
         ),
+        catchError(() => {
+          this.commonService.setLoading(false);
+          this.router.navigate(['not-found']);
+          return [];
+        }),
       )
       .subscribe({
         next: (entries) => {
