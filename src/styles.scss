@@ -1729,6 +1729,389 @@ footer {
   }
 }
 
+/* ══════════════════════════════════════════════════
+   SKILLS PANEL
+   ══════════════════════════════════════════════════ */
+.skills-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ── Category pills ──────────────────────────────── */
+.skill-cat-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 8px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.cat-pill i {
+  font-size: 0.9rem;
+}
+
+.cat-pill:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+
+.cat-pill.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Skill bars ──────────────────────────────────── */
+.skill-bars-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skill-row {
+  animation: rowIn 0.4s ease both;
+}
+
+@keyframes rowIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.skill-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.skill-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.skill-pct {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.skill-track {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-fill {
+  height: 100%;
+  border-radius: 10px;
+  width: 0;
+  background: linear-gradient(90deg, var(--bar-color, var(--accent)), color-mix(in srgb, var(--bar-color, var(--accent)) 60%, white));
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* Use CSS custom property via style binding */
+.skill-fill {
+  --bar-color: var(--bar-color, #ff014f);
+}
+
+.skill-fill.animate {
+  width: var(--target-w, 0%);
+}
+
+/* Shimmer on fill */
+.skill-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  animation: shimmerBar 2.5s 1s infinite;
+}
+
+@keyframes shimmerBar {
+  0% {
+    left: -60%;
+  }
+
+  100% {
+    left: 120%;
+  }
+}
+
+/* ── Hex skill bubbles ───────────────────────────── */
+.skills-right {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  align-self: flex-end;
+}
+
+.hex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.hex-bubble {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: default;
+  transition: all var(--transition);
+  overflow: hidden;
+}
+
+.hex-bubble::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--bclr, var(--accent)) 0%, transparent 65%);
+  opacity: 0.12;
+  transition: opacity var(--transition);
+}
+
+.hex-bubble:hover {
+  border-color: var(--bclr, var(--accent));
+  transform: scale(1.07);
+}
+
+.hex-bubble:hover::before {
+  opacity: 0.22;
+}
+
+.hex-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.hex-pct {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.hex-unit {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--bclr, var(--accent));
+  line-height: 1;
+}
+
+.hex-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.2;
+  margin-top: 2px;
+  padding: 0 4px;
+}
+
+/* ══════════════════════════════════════════════════
+   SOFTWARE TOOLS SECTION
+   ══════════════════════════════════════════════════ */
+.tools-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tools-section::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.tools-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  gap: 9px;
+}
+
+.tools-label i {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+/* ── Individual tool card ────────────────────────── */
+.tool-card {
+  position: relative;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: default;
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.tool-card:hover {
+  border-color: var(--tclr, var(--accent));
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Glow on hover */
+.tool-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: radial-gradient(circle at 50% 100%, var(--tclr, var(--accent)) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.tool-card:hover .tool-glow {
+  opacity: 0.1;
+}
+
+/* Top colour accent bar */
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--tclr, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  border-radius: 2px 2px 0 0;
+}
+
+.tool-card:hover::before {
+  transform: scaleX(1);
+}
+
+.tool-icon-wrap {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px;
+  transition: border-color var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.tool-card:hover .tool-icon-wrap {
+  border-color: var(--tclr, var(--accent));
+}
+
+.tool-icon-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tool-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.tool-name {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.tool-cat {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--tclr, var(--accent));
+  text-align: center;
+  opacity: 0.85;
+}
+
 /* ══════════════════════════════════════════════════════════
    Contact Form Styles
    ══════════════════════════════════════════════════════════ */
@@ -1940,4 +2323,26 @@ footer {
   .form-row {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Autofill Override ───────────────────────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--surface) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+}
+
+/* Remove autofill border glow */
+input:-webkit-autofill {
+  border: 1px solid var(--border-hover) !important;
+}
+
+/* For light theme */
+[data-theme='light'] input:-webkit-autofill,
+[data-theme='light'] input:-webkit-autofill:hover,
+[data-theme='light'] input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px var(--surface) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
 }

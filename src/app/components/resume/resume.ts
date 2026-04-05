@@ -1,13 +1,25 @@
 import { AfterViewInit, Component, computed, OnInit, signal } from '@angular/core';
 import { ISkillItem } from '../../models/portfolio.models';
 import { Contentful } from '../../services/contentful';
-import { TitleCasePipe } from '@angular/common';
+import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
 
 type TabTypes = 'experience' | 'education' | 'skills' | 'more';
+export interface IToolItem {
+  name: string;
+  color: string; // accent hex for the icon
+  category: string;
+  imageSrc: string; // Optional image source for the icon
+}
+
+export interface ISkillCategory {
+  label: string;
+  icon: string;
+  skills: { title: string; pct: number; color: string }[];
+}
 
 @Component({
   selector: 'app-resume',
-  imports: [TitleCasePipe],
+  imports: [TitleCasePipe, NgOptimizedImage],
   templateUrl: './resume.html',
   styleUrl: './resume.scss',
 })
@@ -55,6 +67,22 @@ export class Resume implements OnInit {
     return [];
   });
 
+  skillAndSoftwares = computed(() =>
+    this.activeTab() === 'skills'
+      ? this.resume().find((i) => i.fields.type === 'Skills')?.fields?.skills
+      : [],
+  );
+
+  // ── Software tools ────────────────────────────────────────
+  tools = computed<IToolItem[]>(() => this.skillAndSoftwares()?.tools ?? []);
+
+  // ── Skill categories  ──
+  skillCategories = computed<ISkillCategory[]>(
+    () => this.skillAndSoftwares()?.skillCategories ?? [],
+  );
+
+  activeSkillCat = 0;
+  barsAnimated = signal(false);
   isExpanded: Record<string, boolean> = {};
   readonly contentLimit = 25;
 
@@ -84,5 +112,14 @@ export class Resume implements OnInit {
 
   toggleExpand(company: string): void {
     this.isExpanded[company] = !this.isExpanded[company];
+  }
+
+  selectSkillCat(idx: number): void {
+    this.activeSkillCat = idx;
+    this.barsAnimated.set(false);
+    setTimeout(() => this.barsAnimated.set(true), 60);
+  }
+  get activeCatSkills() {
+    return this.skillCategories()[this.activeSkillCat]?.skills ?? [];
   }
 }

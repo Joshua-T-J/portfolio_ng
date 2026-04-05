@@ -54,7 +54,7 @@
 
 
         @if (activeTab() === 'education') {
-        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation">
+        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation" animate.leave="leave-animation">
             <h3 class="panel-title">Educational Qualification</h3>
             <div class="resume-grid">
                 @for (item of education(); track $index) {
@@ -74,50 +74,90 @@
         </div>
         }
 
-
         @if (activeTab() === 'skills') {
-        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation">
-            <h3 class="panel-title">Professional Skills</h3>
-            <div class="resume-grid">
-                <div class="resume-card">
-                    <p class="skills-group-title">Languages &amp; Frameworks</p>
-                    @for (item of languages(); track $index) {
-                    <div class="skill-bar-wrap">
-                        <div class="skill-bar-label">
-                            <span>{{ item.Title }}</span>
-                            <span class="pct">{{ item.Percentage }}</span>
-                        </div>
-                        <div class="skill-bar-track">
-                            <div
-                                class="skill-bar-fill"
-                                [style.width]="item.Percentage"></div>
-                        </div>
+        <div class="tab-panel skills-panel" role="tabpanel" animate.enter="enter-animation" animate.leave="leave-animation">
+
+            <!-- Category pills + bars + hex bubbles -->
+            <div class="skills-layout">
+
+                <!-- LEFT: bars -->
+                <div class="skills-left">
+                    <p class="panel-label">Technical Proficiency</p>
+                    <div class="skill-cat-pills">
+                        @for (cat of skillCategories(); track cat.label; let i = $index) {
+                        <button class="cat-pill" [class.active]="activeSkillCat === i" (click)="selectSkillCat(i)">
+                            <i [class]="`bi ${cat.icon}`"></i>{{ cat.label }}
+                        </button>
+                        }
                     </div>
-                    }
+
+                    <div class="skill-bars-wrap">
+                        @for (skill of activeCatSkills; track skill.title; let i = $index) {
+                        <div class="skill-row" [style.animation-delay]="i * 60 + 'ms'">
+                            <div class="skill-meta">
+                                <span class="skill-name">{{ skill.title }}</span>
+                                <span class="skill-pct">{{ skill.pct }}%</span>
+                            </div>
+                            <div class="skill-track">
+                                <div
+                                    class="skill-fill"
+                                    [class.animate]="barsAnimated()"
+                                    [style.--target-w]="skill.pct + '%'"
+                                    [style.width]="skill.pct + '%'"
+                                    [style.--bar-color]="skill.color"></div>
+                            </div>
+                        </div>
+                        }
+                    </div>
                 </div>
-                <div class="resume-card">
-                    <p class="skills-group-title">Other Skills</p>
-                    @for (item of otherSkills(); track $index) {
-                    <div class="skill-bar-wrap">
-                        <div class="skill-bar-label">
-                            <span>{{ item.Title }}</span>
-                            <span class="pct">{{ item.Percentage }}</span>
+
+                <!-- RIGHT: hex bubbles -->
+                <div class="skills-right">
+                    <p class="panel-label">Skill Radar</p>
+                    <div class="hex-grid">
+                        @for (skill of activeCatSkills; track skill.title) {
+                        <div class="hex-cell">
+                            <div class="hex-bubble" [style.--bclr]="skill.color">
+                                <div class="hex-inner">
+                                    <span class="hex-pct">{{ skill.pct }}</span>
+                                    <span class="hex-unit">%</span>
+                                    <span class="hex-label">{{ skill.title }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="skill-bar-track">
-                            <div
-                                class="skill-bar-fill"
-                                [style.width]="item.Percentage"></div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Software tools card -->
+            <div class="tools-section">
+                <p class="panel-label tools-label">
+                    <i class="bi bi-grid-3x3-gap-fill"></i>Tools &amp; Software I Use
+                </p>
+                <div class="tools-grid">
+                    @for (tool of tools(); track tool.name) {
+                    <div class="tool-card" [style.--tclr]="tool.color">
+                        <div class="tool-icon-wrap">
+                            <img [ngSrc]="tool.imageSrc" width="34" height="34" alt="{{ tool.name }}">
                         </div>
+                        <div class="tool-info">
+                            <span class="tool-name">{{ tool.name }}</span>
+                            <span class="tool-cat">{{ tool.category }}</span>
+                        </div>
+                        <div class="tool-glow"></div>
                     </div>
                     }
                 </div>
             </div>
+
         </div>
         }
 
 
         @if (activeTab() === 'more') {
-        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation">
+        <div class="tab-panel" role="tabpanel" animate.enter="enter-animation" animate.leave="leave-animation">
             <h3 class="panel-title">More About Me</h3>
             <div class="resume-grid">
 

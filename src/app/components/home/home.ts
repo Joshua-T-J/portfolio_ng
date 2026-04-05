@@ -21,7 +21,7 @@ export class Home implements OnInit, OnDestroy {
 
   // Skills
   skillsIcons: ISkillIcon[] = [
-    { iconSrc: 'SVGs/angular.svg', title: 'Angular' },
+    { iconSrc: 'SVGs/angular-icon.svg', title: 'Angular' },
     { iconSrc: 'SVGs/javascript.svg', title: 'JavaScript' },
     { iconSrc: 'SVGs/html.svg', title: 'HTML5' },
     { iconSrc: 'SVGs/css.svg', title: 'CSS3' },
