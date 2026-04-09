@@ -17,16 +17,23 @@
             </a>
             }
         </nav>
-
-        <!-- Hamburger -->
-        <button
-            class="nav-toggle"
-            [class.open]="mobileMenuOpen()"
-            (click)="toggleMenu()"
-            aria-label="Toggle navigation"
-            [attr.aria-expanded]="mobileMenuOpen()">
-            <i class="bi" [ngClass]="mobileMenuOpen() ? 'bi-x-lg' : 'bi-list'"></i>
-        </button>
+        <div class="nav-toggle-container">
+            <!-- Theme toggle -->
+            <label class="nav-theme-switch side-bar-icon theme-switch" for="theme-checkbox"
+                [matTooltip]="themeSwitch.value ? 'Switch to Light' : 'Switch to Dark'" matTooltipPosition="above">
+                <input type="checkbox" id="theme-checkbox" [formControl]="themeSwitch" (change)="toggleTheme()" />
+                <i class="bi" [ngClass]="themeSwitch.value ? 'bi-moon-fill' : 'bi-brightness-high'"></i>
+            </label>
+            <!-- Hamburger -->
+            <button
+                class="nav-toggle"
+                [class.open]="mobileMenuOpen()"
+                (click)="toggleMenu()"
+                aria-label="Toggle navigation"
+                [attr.aria-expanded]="mobileMenuOpen()">
+                <i class="bi" [ngClass]="mobileMenuOpen() ? 'bi-x-lg' : 'bi-list'"></i>
+            </button>
+        </div>
     </div>
 
     <!-- Mobile drawer -->

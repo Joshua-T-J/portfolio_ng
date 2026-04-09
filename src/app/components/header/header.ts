@@ -1,10 +1,13 @@
 import { NgClass } from '@angular/common';
-import { Component, DOCUMENT, HostListener, Inject, OnInit, signal } from '@angular/core';
+import { Component, DOCUMENT, HostListener, inject, Inject, OnInit, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CanvasAnimation } from '../../services/canvas-animation';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, NgClass],
+  imports: [RouterModule, NgClass, ReactiveFormsModule, MatTooltipModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -20,10 +23,17 @@ export class Header implements OnInit {
     { label: 'Contact', fragment: 'contact_form' },
     { label: 'Follow', fragment: 'footer' },
   ];
+  themeSwitch = new FormControl(true);
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  private readonly canvasService = inject(CanvasAnimation);
+  private readonly document = inject(DOCUMENT);
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const saved = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    const theme = saved ?? 'dark';
+    this.document.documentElement.setAttribute('data-theme', theme);
+    this.themeSwitch.setValue(theme === 'dark');
+  }
 
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -52,5 +62,13 @@ export class Header implements OnInit {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  toggleTheme(): void {
+    const isDark = this.themeSwitch.value;
+    const theme = isDark ? 'dark' : 'light';
+    this.document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    this.canvasService.setMode(theme);
   }
 }

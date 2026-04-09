@@ -468,7 +468,6 @@ header.scrolled {
 
 /* Hamburger */
 .nav-toggle {
-  display: none;
   background: none;
   border: 1px solid var(--border-hover);
   color: var(--text);
@@ -479,8 +478,13 @@ header.scrolled {
   font-size: 1.15rem;
   align-items: center;
   justify-content: center;
-  margin-left: auto;
+  // margin-left: auto;
   transition: border-color var(--transition), color var(--transition);
+}
+
+.nav-toggle-container {
+  margin-left: auto;
+  display: none;
 }
 
 .nav-toggle:hover {
@@ -719,9 +723,17 @@ header.scrolled {
   }
 }
 
+.nav-theme-switch {
+  background: none;
+  width: 40px;
+  height: 40px;
+}
+
 @media (max-width: 900px) {
-  .nav-toggle {
+  .nav-toggle-container {
     display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .nav-links {
