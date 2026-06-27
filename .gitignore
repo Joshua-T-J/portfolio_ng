@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # Ignore Angular environment files containing secrets
-/src/environments/environment*.ts
+.env
