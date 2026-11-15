@@ -1,45 +1,28 @@
-<ng-template #row let-e>
-  <li class="tl__row reveal">
-    <span class="tl__period mono">{{ e.period }}</span>
-    <div class="tl__body">
-      <h3 class="tl__title">{{ e.title }}</h3>
-      @if (e.orgUrl) {
-        <a class="link tl__org" [href]="e.orgUrl" target="_blank" rel="noopener">{{ e.org }} ↗</a>
-      } @else {
-        <span class="tl__org tl__org--plain">{{ e.org }}</span>
+<section id="experience" class="container section" aria-labelledby="experience-title">
+  <app-section-header eyebrow="03 · Experience" title="Experience & education" headingId="experience-title">
+    <p class="section-header__aside">Where I've worked, what I studied and what I'm certified in, as separate timelines.</p>
+  </app-section-header>
+
+  @if (all.length > 1) {
+    <nav class="jump" aria-label="Jump to a timeline">
+      @for (t of all; track t.kind) {
+        <a class="jump__link jump__link--{{ t.kind }}" [href]="'#tl-' + t.kind">{{ t.shortTitle }} · {{ t.items.length }}</a>
       }
-      @if (e.summary) {
-        <p class="tl__summary">{{ e.summary }}</p>
-      }
-      @if (e.highlights.length) {
-        <ul class="tl__highlights">
-          @for (h of e.highlights; track h) {
-            <li>{{ h }}</li>
-          }
-        </ul>
+    </nav>
+  }
+
+  <div class="tracks" [class.tracks--single]="columns.right.length === 0">
+    <div class="tracks__col tracks__col--main">
+      @for (t of columns.left; track t.kind) {
+        <app-timeline-track class="reveal" [track]="t" />
       }
     </div>
-  </li>
-</ng-template>
-
-<section id="experience" class="container section tl-section" aria-labelledby="experience-title">
-  <app-section-header eyebrow="03 · Experience" title="Experience & education" headingId="experience-title" />
-
-  <div class="tl">
-    <ol class="tl__list" role="list">
-      @for (e of visible; track e.title + e.period) {
-        <ng-container [ngTemplateOutlet]="row" [ngTemplateOutletContext]="{ $implicit: e }" />
-      }
-    </ol>
-    @if (earlier.length) {
-      <details class="tl__more">
-        <summary class="btn btn--outline btn--sm">Show {{ earlier.length }} earlier</summary>
-        <ol class="tl__list" role="list">
-          @for (e of earlier; track e.title + e.period) {
-            <ng-container [ngTemplateOutlet]="row" [ngTemplateOutletContext]="{ $implicit: e }" />
-          }
-        </ol>
-      </details>
+    @if (columns.right.length) {
+      <div class="tracks__col">
+        @for (t of columns.right; track t.kind) {
+          <app-timeline-track class="reveal" [track]="t" />
+        }
+      </div>
     }
   </div>
 </section>

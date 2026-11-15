@@ -1,21 +1,21 @@
-import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ContentStore } from '../../../../core/content/content.store';
-import { TimelineItem } from '../../../../core/content/portfolio.models';
 import { SectionHeader } from '../../../../shared/ui/section-header/section-header';
+import { balanceTracks } from './balance-tracks';
+import { TimelineTrack } from './timeline-track/timeline-track';
 
-/** Entries shown before the rest fold into "Show earlier". */
-export const VISIBLE_TIMELINE = 4;
-
+/**
+ * 03 · Experience as separate timelines in two balanced columns (see balanceTracks).
+ * Stacks into one column on narrow screens, with jump links to each timeline.
+ */
 @Component({
   selector: 'app-timeline-section',
-  imports: [SectionHeader, NgTemplateOutlet],
+  imports: [SectionHeader, TimelineTrack],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './timeline-section.html',
   styleUrl: './timeline-section.scss',
 })
 export class TimelineSection {
-  private readonly items = inject(ContentStore).timeline;
-  protected readonly visible: readonly TimelineItem[] = this.items.slice(0, VISIBLE_TIMELINE);
-  protected readonly earlier: readonly TimelineItem[] = this.items.slice(VISIBLE_TIMELINE);
+  protected readonly all = inject(ContentStore).timelineTracks;
+  protected readonly columns = balanceTracks(this.all);
 }

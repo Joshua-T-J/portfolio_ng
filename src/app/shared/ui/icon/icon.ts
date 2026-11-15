@@ -20,7 +20,10 @@ export type IconName =
   | 'cloud'
   | 'pen'
   | 'alert'
-  | 'info';
+  | 'info'
+  | 'briefcase'
+  | 'graduation'
+  | 'award';
 
 /** Inline stroke icons (24×24). Decorative by default; pass `label` to expose to assistive tech. */
 @Component({
@@ -68,6 +71,9 @@ export type IconName =
         @case ('cloud') { <path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.5 12 3.5 3.5 0 0 0 6 19z" /> }
         @case ('pen') { <path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /> }
         @case ('alert') { <path d="M12 8v5" /><path d="M12 16.5h.01" /><circle cx="12" cy="12" r="9" /> }
+        @case ('briefcase') { <rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><path d="M3 13h18" /> }
+        @case ('graduation') { <path d="m2 9 10-5 10 5-10 5z" /><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" /><path d="M22 9v6" /> }
+        @case ('award') { <circle cx="12" cy="9" r="6" /><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7" /> }
         @case ('info') { <circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><path d="M12 7.5h.01" /> }
       }
     </svg>

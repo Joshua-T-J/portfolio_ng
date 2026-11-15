@@ -126,13 +126,35 @@ export interface PortfolioContent {
   readonly config: SiteConfig;
 }
 
-/** One row in the combined Experience & education timeline. */
+export type TimelineKind = 'work' | 'education' | 'certification';
+
+/** One entry in a timeline track (a job, a qualification or a certificate). */
 export interface TimelineItem {
+  readonly kind: TimelineKind;
+  /** "2023 — Present", "2018 — 2022", "Jan 2022" */
   readonly period: string;
+  /** Extra facts shown after the period, e.g. "Full-time · Kerala, India". */
+  readonly meta?: string;
   readonly title: string;
   readonly org: string;
   readonly orgUrl?: string;
-  readonly summary: string;
+  /** Secondary line under the organisation, e.g. the university. */
+  readonly detail?: string;
+  readonly summary?: string;
   readonly highlights: readonly string[];
-  readonly kind: 'work' | 'education' | 'certification';
+  readonly techStack: readonly string[];
+  /** Highlighted label, e.g. "CGPA 7.65". */
+  readonly badge?: string;
+  /** Ongoing role (no end date). */
+  readonly current: boolean;
+}
+
+/** One of the separate Experience timelines (Work / Education / Certifications). */
+export interface TimelineTrack {
+  readonly kind: TimelineKind;
+  readonly title: string;
+  /** Short label for the jump links, e.g. "Certs". */
+  readonly shortTitle: string;
+  readonly countLabel: string;
+  readonly items: readonly TimelineItem[];
 }

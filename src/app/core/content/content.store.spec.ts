@@ -49,17 +49,28 @@ describe('ContentStore', () => {
     expect(store.nowBuilding.map((p) => p.slug)).toEqual(['oss']);
   });
 
-  it('orders the timeline: newest job first, then education, then certifications', () => {
+  it('builds separate tracks: newest first, current role flagged, empty tracks dropped', () => {
     const store = storeWith({
       experience: [
-        { role: 'Old', company: 'A', startDate: '2019-01-01', endDate: '2021-01-01', summary: 's', highlights: [], techStack: [] },
+        { role: 'Old', company: 'A', startDate: '2019-01-01', endDate: '2021-01-01', summary: 's', highlights: [], techStack: [], employmentType: 'Contract' },
         { role: 'Current', company: 'B', startDate: '2023-01-01', summary: 's', highlights: [], techStack: [] },
       ],
-      education: [{ qualification: 'B.Tech', institution: 'X', startYear: 2015, endYear: 2019 }],
-      certifications: [{ title: 'Cert', issuer: 'Y', issuedOn: '2022-01-27' }],
+      education: [{ qualification: 'B.Tech', institution: 'X', board: 'U', startYear: 2015, endYear: 2019, grade: 'CGPA 8' }],
+      certifications: [],
     });
-    expect(store.timeline.map((t) => t.title)).toEqual(['Current', 'Old', 'B.Tech', 'Cert']);
-    expect(store.timeline[0].period).toBe('2023 — Present');
+    expect(store.timelineTracks.map((t) => t.kind)).toEqual(['work', 'education']);
+    expect(store.workTimeline.map((t) => t.title)).toEqual(['Current', 'Old']);
+    expect(store.workTimeline[0]).toEqual(jasmine.objectContaining({ period: '2023 — Present', current: true }));
+    expect(store.workTimeline[1]).toEqual(jasmine.objectContaining({ meta: 'Contract', current: false }));
+    expect(store.educationTimeline[0]).toEqual(jasmine.objectContaining({ detail: 'U', badge: 'CGPA 8' }));
+    expect(store.timelineTracks[0].countLabel).toMatch(/^2 roles · \d+\+ yrs$/);
+    expect(store.timelineTracks[1].countLabel).toBe('1 qualification');
+  });
+
+  it('formats certificate dates as month and year', () => {
+    const store = storeWith({ certifications: [{ title: 'C', issuer: 'I', issuedOn: '2022-01-27' }] });
+    expect(store.certificationTimeline[0].period).toBe('Jan 2022');
+    expect(store.timelineTracks[0].countLabel).toBe('1 certificate');
   });
 
   it('finds neighbours in display order', () => {

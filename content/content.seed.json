@@ -323,6 +323,23 @@
       "title": "Learning Web Development from Scratch: The Ultimate Bootcamp",
       "issuer": "Eduonix",
       "issuedOn": "2022-01-27"
+    },
+    {
+      "title": "Claude Code 101",
+      "issuer": "Claude Academy",
+      "issuedOn": "2026-11-10",
+      "credentialUrl": "https://academy.claude.com/verify/06bc9bf30d0cd862d7812c2c126819c1"
+    },
+    {
+      "title": "Claude 101",
+      "issuer": "Claude Academy",
+      "issuedOn": "2026-11-06",
+      "credentialUrl": "https://academy.claude.com/verify/7780672e5bae6b3da2dd5f2715eff8b2"
+    },
+    {
+      "title": "SQL (Intermediate)",
+      "issuer": "HackerRank",
+      "issuedOn": "2024-02-06"
     }
   ],
   "skillGroups": [
