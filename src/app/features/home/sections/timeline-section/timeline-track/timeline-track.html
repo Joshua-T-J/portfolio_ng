@@ -1,0 +1,54 @@
+@let t = track();
+<section class="track__card" [attr.aria-labelledby]="headingId()" [id]="'tl-' + t.kind">
+  <header class="track__head">
+    <span class="track__icon" aria-hidden="true"><app-icon [name]="look().icon" [size]="20" /></span>
+    <h3 class="track__title" [id]="headingId()">{{ t.title }}</h3>
+    <span class="track__count mono">{{ t.countLabel }}</span>
+  </header>
+
+  <ol class="track__list" role="list" [id]="listId()">
+    @for (e of visible(); track e.title + e.period) {
+      <li class="node">
+        <span class="node__dot" [class.node__dot--now]="e.current" aria-hidden="true"></span>
+        <div class="node__top">
+          <span class="mono node__period">{{ e.period }}@if (e.meta) { · {{ e.meta }}}</span>
+          @if (e.current) {
+            <span class="node__pill">Current role</span>
+          }
+        </div>
+        <h4 class="node__title">{{ e.title }}</h4>
+        @if (e.orgUrl) {
+          <a class="node__org link" [href]="e.orgUrl" target="_blank" rel="noopener">{{ e.org }} ↗</a>
+        } @else {
+          <p class="node__org">{{ e.org }}</p>
+        }
+        @if (e.detail) {
+          <p class="node__detail">{{ e.detail }}</p>
+        }
+        @if (e.summary) {
+          <p class="node__summary">{{ e.summary }}</p>
+        }
+        @if (e.highlights.length) {
+          <ul class="node__highlights">
+            @for (h of e.highlights; track h) {
+              <li>{{ h }}</li>
+            }
+          </ul>
+        }
+        @if (e.techStack.length) {
+          <app-tech-chips class="node__chips" [items]="e.techStack" />
+        }
+        @if (e.badge) {
+          <span class="node__badge">{{ e.badge }}</span>
+        }
+      </li>
+    }
+  </ol>
+
+  @if (hiddenCount() > 0) {
+    <button type="button" class="track__more" [attr.aria-expanded]="expanded()" [attr.aria-controls]="listId()" (click)="expanded.set(!expanded())">
+      {{ expanded() ? 'Show less' : look().more(hiddenCount()) }}
+      <app-icon name="chevron-down" [size]="14" [stroke]="2.2" [class.flip]="expanded()" />
+    </button>
+  }
+</section>

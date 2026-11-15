@@ -35,7 +35,7 @@ import { TimelineSection } from './sections/timeline-section/timeline-section';
     @if (store.otherProjects.length) {
       <app-projects-section />
     }
-    @if (store.timeline.length) {
+    @if (store.timelineTracks.length) {
       <app-timeline-section />
     }
     @if (store.skillGroups.length) {

@@ -1,0 +1,217 @@
+// Each track sets its own colours; everything below reads --rail / --rail-bg / --rail-fg.
+:host {
+  display: block;
+  --rail: var(--accent);
+  --rail-bg: var(--tint);
+  --rail-fg: var(--accent);
+}
+
+:host(.track--education) {
+  --rail: var(--edu-rail);
+  --rail-bg: var(--ok-bg);
+  --rail-fg: var(--ok);
+}
+
+:host(.track--certification) {
+  --rail: var(--cert-rail);
+  --rail-bg: var(--warn-bg);
+  --rail-fg: var(--warn);
+}
+
+.track__card {
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  scroll-margin-top: 100px;
+}
+
+.track__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.track__icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rail-bg);
+  color: var(--rail-fg);
+}
+
+.track__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.track__count {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.track__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.node {
+  position: relative;
+  padding: 22px 0 4px 34px;
+  min-width: 0;
+
+  // The rail: a line from each dot down to the next one.
+  &::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--rail);
+    opacity: 0.35;
+  }
+
+  &:first-child::before {
+    top: 28px;
+  }
+
+  &:last-child::before {
+    bottom: auto;
+    height: 28px;
+  }
+
+  &:only-child::before {
+    display: none;
+  }
+}
+
+.node__dot {
+  position: absolute;
+  left: 3px;
+  top: 27px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid var(--rail);
+  background: var(--surface);
+
+  &--now {
+    background: var(--rail);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--rail) 22%, transparent);
+  }
+}
+
+.node__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.node__period {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.node__pill,
+.node__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--rail-bg);
+  color: var(--rail-fg);
+}
+
+.node__badge {
+  margin-top: 12px;
+}
+
+.node__title {
+  margin: 6px 0 2px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.node__org {
+  margin: 0;
+  min-height: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+
+a.node__org {
+  color: var(--ink);
+  min-height: 32px;
+}
+
+.node__detail {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  color: var(--text-2);
+}
+
+.node__summary {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-2);
+}
+
+.node__highlights {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-2);
+}
+
+.node__chips {
+  display: block;
+  margin-top: 12px;
+}
+
+.track__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin: 16px 0 0 34px;
+  padding: 0 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--ink);
+  }
+
+  .flip {
+    transform: rotate(180deg);
+  }
+}
