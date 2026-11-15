@@ -1,0 +1,129 @@
+.detail {
+  padding-top: clamp(56px, 8vw, 96px);
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.detail__back {
+  align-self: flex-start;
+}
+
+.detail__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 820px;
+}
+
+.detail__tags,
+.detail__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.detail__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
+}
+
+.detail__summary {
+  margin: 0;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.detail__cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--soft);
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.detail__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.detail__main {
+  flex: 999 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.detail__h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 26px;
+}
+
+.detail__list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-2);
+}
+
+.detail__side {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.detail__pager {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.pager {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 24px;
+  text-decoration: none;
+  color: var(--ink);
+
+  &--next {
+    text-align: right;
+    align-items: flex-end;
+  }
+}
+
+.pager__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+}

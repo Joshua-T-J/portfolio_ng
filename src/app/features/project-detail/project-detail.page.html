@@ -1,0 +1,72 @@
+@if (project(); as p) {
+  <article class="detail container" [attr.aria-labelledby]="'title-' + p.slug">
+    <a class="link detail__back" routerLink="/" fragment="work"><app-icon name="arrow-left" [size]="15" /> All work</a>
+
+    <header class="detail__head enter">
+      <div class="detail__tags">
+        <span class="chip" [class.chip--ok]="p.category === 'Client'">{{ p.clientType ? p.category + ' · ' + p.clientType : p.category }}</span>
+        <span class="chip">{{ p.status }}</span>
+      </div>
+      <h1 class="detail__title" [id]="'title-' + p.slug">{{ p.title }}</h1>
+      <p class="detail__summary">{{ p.summary }}</p>
+      <div class="detail__cta">
+        @if (p.liveUrl) {
+          <a class="btn btn--primary" [href]="p.liveUrl" target="_blank" rel="noopener">Open live site <app-icon name="arrow-up-right" [size]="16" /></a>
+        }
+        @if (p.repoUrl) {
+          <a class="btn btn--outline" [href]="p.repoUrl" target="_blank" rel="noopener">View source <app-icon name="arrow-up-right" [size]="16" /></a>
+        }
+        @if (p.demoVideoUrl) {
+          <a class="btn btn--outline" [href]="p.demoVideoUrl" target="_blank" rel="noopener">Watch demo <app-icon name="arrow-up-right" [size]="16" /></a>
+        }
+      </div>
+    </header>
+
+    @if (p.coverImage; as img) {
+      <div class="detail__cover enter enter-2">
+        <img [ngSrc]="img.url" [alt]="img.alt" fill priority sizes="100vw" [loaderParams]="{ ratio: 16 / 9 }" />
+      </div>
+    }
+
+    <div class="detail__grid">
+      <div class="detail__main">
+        @if (p.highlights.length) {
+          <section aria-labelledby="hl">
+            <h2 id="hl" class="detail__h2">Highlights</h2>
+            <ul class="detail__list">
+              @for (h of p.highlights; track h) {
+                <li>{{ h }}</li>
+              }
+            </ul>
+          </section>
+        }
+        @if (p.bodyHtml) {
+          <section class="prose" [innerHTML]="p.bodyHtml"></section>
+        }
+      </div>
+      <aside class="detail__side card">
+        <h2 class="tag">Stack</h2>
+        <app-tech-chips [items]="p.techStack" [max]="20" />
+        @if (p.startDate) {
+          <h2 class="tag">Started</h2>
+          <p class="text-2">{{ p.startDate.slice(0, 4) }}</p>
+        }
+      </aside>
+    </div>
+
+    <nav class="detail__pager" aria-label="More projects">
+      @if (neighbours().prev; as prev) {
+        <a class="card card--lift pager" [routerLink]="['/projects', prev.slug]">
+          <span class="tag">Previous</span><span class="pager__title">{{ prev.title }}</span>
+        </a>
+      }
+      @if (neighbours().next; as next) {
+        <a class="card card--lift pager pager--next" [routerLink]="['/projects', next.slug]">
+          <span class="tag">Next</span><span class="pager__title">{{ next.title }}</span>
+        </a>
+      }
+    </nav>
+  </article>
+} @else {
+  <app-not-found-page />
+}

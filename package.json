@@ -1,12 +1,24 @@
 {
   "name": "portfolio-ng",
-  "version": "0.0.0",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "ng": "ng",
+    "content:pull": "node scripts/content-pull.mjs",
+    "prestart": "npm run content:pull",
     "start": "ng serve",
+    "prebuild": "npm run content:pull",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "pretest": "npm run content:pull",
+    "test": "ng test",
+    "contentful:migrate": "node scripts/contentful-migrate.mjs",
+    "postbuild": "node scripts/postbuild.mjs",
+    "prewatch": "npm run content:pull"
   },
   "prettier": {
     "printWidth": 100,
@@ -20,34 +32,36 @@
       }
     ]
   },
-  "private": true,
   "dependencies": {
     "@angular/cdk": "^20.2.14",
-    "@angular/common": "^20.1.0",
-    "@angular/compiler": "^20.1.0",
-    "@angular/core": "^20.1.0",
-    "@angular/forms": "^20.1.0",
-    "@angular/material": "^20.2.14",
-    "@angular/platform-browser": "^20.1.0",
-    "@angular/router": "^20.1.0",
-    "bootstrap": "^5.3.8",
-    "bootstrap-icons": "^1.13.1",
-    "contentful": "^11.12.0",
+    "@angular/common": "^20.3.0",
+    "@angular/compiler": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "@angular/platform-browser": "^20.3.0",
+    "@angular/platform-server": "^20.3.0",
+    "@angular/router": "^20.3.0",
+    "@angular/ssr": "^20.3.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.1.6",
-    "@angular/cli": "^20.1.6",
-    "@angular/compiler-cli": "^20.1.0",
-    "@ngx-env/builder": "^20.1.1",
+    "@angular/build": "^20.3.0",
+    "@angular/cli": "^20.3.0",
+    "@angular/compiler-cli": "^20.3.0",
+    "@contentful/rich-text-html-renderer": "^17.0.0",
     "@types/jasmine": "~5.1.0",
+    "contentful-migration": "^5.1.1",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "zod": "^4.0.0"
   }
 }

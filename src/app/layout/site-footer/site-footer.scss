@@ -1,0 +1,61 @@
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 96px;
+  padding-bottom: 32px;
+  overflow: hidden;
+
+  ul {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 32px;
+}
+
+.site-footer__status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+
+  p.text-2 {
+    margin: 0;
+    max-width: 380px;
+    line-height: 1.6;
+  }
+}
+
+.site-footer__wordmark {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 9vw, 120px);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+}
+
+.site-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* Block-level eyebrows so all three columns start on the same baseline. */
+.site-footer__grid .tag {
+  display: flex;
+}

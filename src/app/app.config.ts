@@ -1,18 +1,34 @@
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter, withViewTransitions } from '@angular/router';
-
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
+import { ContentSource } from './core/content/content-source';
+import { StaticContentSource } from './core/content/static-content-source';
+import { provideContentfulImageLoader } from './core/images/contentful-image-loader';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withViewTransitions()),
-    provideHttpClient(),
+    provideRouter(
+      routes,
+      withComponentInputBinding(),
+      withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }),
+      withViewTransitions({ skipInitialTransition: true }),
+    ),
+    provideHttpClient(withFetch()),
+    provideClientHydration(withEventReplay()),
+    provideContentfulImageLoader(),
+    { provide: ContentSource, useClass: StaticContentSource },
   ],
 };

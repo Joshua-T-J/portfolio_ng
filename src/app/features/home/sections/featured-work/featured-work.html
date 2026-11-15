@@ -1,0 +1,62 @@
+<section id="work" class="container section" aria-labelledby="work-title">
+  <app-section-header eyebrow="01 · Selected work" [title]="heading" headingId="work-title">
+    <p class="section-header__aside">Case studies: the problem, the stack, and what I built.</p>
+  </app-section-header>
+
+  <ol class="stack-list" role="list">
+    @for (p of projects; track p.slug; let i = $index) {
+      <li class="case card" [style.top.px]="stickyTop(i)">
+        <article class="case__body" [attr.aria-labelledby]="'case-' + p.slug">
+          <div class="case__meta">
+            <span class="mono accent">{{ (i + 1).toString().padStart(2, '0') }}</span>
+            @for (t of tags(p); track t) {
+              <span class="chip">{{ t }}</span>
+            }
+          </div>
+          <h3 class="case__title" [id]="'case-' + p.slug">{{ p.title }}</h3>
+          <p class="case__summary">{{ p.summary }}</p>
+          @if (p.highlights.length) {
+            <ul class="case__highlights">
+              @for (h of p.highlights; track h) {
+                <li>{{ h }}</li>
+              }
+            </ul>
+          }
+          <app-tech-chips [items]="p.techStack" />
+          <div class="case__links">
+            <a class="link" [routerLink]="['/projects', p.slug]">Read case study <app-icon name="arrow-right" [size]="15" /></a>
+            @if (p.liveUrl) {
+              <a class="link" [href]="p.liveUrl" target="_blank" rel="noopener">Live site ↗</a>
+            }
+            @if (p.repoUrl) {
+              <a class="link" [href]="p.repoUrl" target="_blank" rel="noopener">Source ↗</a>
+            }
+          </div>
+        </article>
+
+        <div class="case__visual" [class.case__visual--dark]="i === 0 && !p.coverImage" [class.case__visual--image]="!!p.coverImage">
+          @if (p.coverImage; as img) {
+            <div class="case__image">
+              <img
+                [ngSrc]="img.url"
+                [alt]="img.alt"
+                fill
+                sizes="(max-width: 860px) 100vw, 45vw"
+                [loaderParams]="{ ratio: 16 / 10 }"
+              />
+            </div>
+          } @else {
+            <div class="layers" aria-hidden="true">
+              @for (layer of layers(p); track layer; let last = $last) {
+                <div class="layers__item card">{{ layer }}</div>
+                @if (!last) {
+                  <span class="layers__link"></span>
+                }
+              }
+            </div>
+          }
+        </div>
+      </li>
+    }
+  </ol>
+</section>

@@ -1,0 +1,163 @@
+@use 'sass:math';
+
+// All motion is CSS-only and switched off for people who prefer reduced motion.
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.45);
+  }
+
+  100% {
+    box-shadow: 0 0 0 10px rgba(22, 163, 74, 0);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+// Rotating hero word. The list repeats the first word at the end, so N words = N + 1 slots.
+@mixin rotator-keyframes($n) {
+  @keyframes rot-#{$n} {
+    @for $i from 0 through $n - 1 {
+      #{math.percentage(math.div($i, $n))},
+      #{math.percentage(math.div($i + 0.85, $n))} {
+        transform: translateY(-100% * $i);
+      }
+    }
+
+    100% {
+      transform: translateY(-100% * $n);
+    }
+  }
+}
+
+@for $n from 2 through 4 {
+  @include rotator-keyframes($n);
+}
+
+.rotator {
+  display: inline-block;
+  height: 1.05em;
+  overflow: hidden;
+  vertical-align: bottom;
+  color: var(--accent);
+
+  > span {
+    display: block;
+  }
+}
+
+@for $n from 2 through 4 {
+  .rotator.rot-#{$n} > span {
+    animation: rot-#{$n} #{$n * 3}s cubic-bezier(0.7, 0, 0.2, 1) infinite;
+  }
+}
+
+.enter {
+  animation: enter-up 0.9s var(--ease-out) both;
+}
+
+@for $i from 1 through 5 {
+  .enter-#{$i} {
+    animation-delay: #{0.08s + ($i - 1) * 0.12s};
+  }
+}
+
+.pulse-dot {
+  animation: pulse 2.2s ease-out infinite;
+}
+
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 70;
+  height: 3px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+// Scroll-driven effects where supported (progressive enhancement).
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: enter-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+
+  @keyframes progress {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .scroll-progress {
+    animation: progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal,
+  .rotator > span,
+  .marquee__track,
+  .scroll-progress {
+    animation: none !important;
+  }
+
+  .card--lift:hover,
+  .btn:hover {
+    transform: none;
+  }
+}

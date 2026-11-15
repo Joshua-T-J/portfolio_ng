@@ -1,0 +1,46 @@
+<section class="hero container" aria-labelledby="hero-title">
+  <div class="hero__main">
+    @if (s.availabilityText) {
+      <p class="pill enter"><span class="pulse-dot" aria-hidden="true"></span>{{ s.availabilityText }}</p>
+    }
+    <h1 id="hero-title" class="hero__title enter enter-1">
+      {{ s.headline }}<br />
+      I ship with
+      <span class="rotator {{ cycle }}" aria-hidden="true">
+        @for (w of words; track $index) {
+          <span>{{ w }}</span>
+        }
+      </span>
+      <span class="visually-hidden">{{ wordsText }}</span>
+    </h1>
+    <p class="hero__intro enter enter-2">{{ s.intro }}</p>
+    <div class="hero__cta enter enter-3">
+      <a class="btn btn--primary" routerLink="/" fragment="work">
+        See selected work <app-icon class="btn__arrow" name="arrow-right" [size]="16" />
+      </a>
+      <a class="btn btn--outline" [href]="s.resumeUrl" target="_blank" rel="noopener">
+        Download résumé (PDF) <app-icon name="download" [size]="16" />
+      </a>
+    </div>
+    <ul class="hero__links enter enter-4" role="list">
+      <li><a class="link" [href]="s.githubUrl" target="_blank" rel="noopener me">GitHub ↗</a></li>
+      <li><a class="link" [href]="s.linkedinUrl" target="_blank" rel="noopener me">LinkedIn ↗</a></li>
+      <li><a class="link break-any" [href]="'mailto:' + s.email">{{ s.email }}</a></li>
+    </ul>
+  </div>
+
+  @if (nowBuilding.length) {
+    <aside class="hero__aside enter enter-5" aria-labelledby="now-building">
+      <p id="now-building" class="tag">Now building</p>
+      @for (p of nowBuilding; track p.slug; let i = $index) {
+        <a class="card card--lift now-card" [routerLink]="['/projects', p.slug]">
+          <span class="now-card__icon" aria-hidden="true"><app-icon [name]="iconFor(i)" [size]="22" /></span>
+          <span class="now-card__text">
+            <span class="now-card__title">{{ p.title }}</span>
+            <span class="now-card__sub">{{ p.summary }}</span>
+          </span>
+        </a>
+      }
+    </aside>
+  }
+</section>

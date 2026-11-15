@@ -1,0 +1,35 @@
+<section id="projects" class="container section" aria-labelledby="projects-title">
+  <app-section-header eyebrow="02 · More projects" title="Client work & side builds" headingId="projects-title">
+    <p class="section-header__aside mono">{{ all.length }} projects</p>
+  </app-section-header>
+
+  <ul class="grid-auto" role="list" id="project-grid">
+    @for (p of visible(); track p.slug) {
+      <li class="reveal"><app-project-card [project]="p" /></li>
+    }
+  </ul>
+
+  @if (hasMore) {
+    <div class="more-row">
+      <button type="button" class="btn btn--outline" aria-controls="project-grid" [attr.aria-expanded]="expanded()" (click)="expanded.set(!expanded())">
+        {{ expanded() ? 'Show fewer projects' : 'Show all ' + all.length + ' projects' }}
+      </button>
+    </div>
+  }
+
+  @if (settings.learningTopics.length) {
+    <div class="learning card reveal">
+      <div class="learning__text">
+        <h3 class="learning__title">Always learning, in public</h3>
+        @if (settings.learningNote) {
+          <p class="text-2">{{ settings.learningNote }}</p>
+        }
+      </div>
+      <ul class="chips learning__chips" aria-label="Recent learning">
+        @for (t of settings.learningTopics; track t) {
+          <li class="chip chip--surface">{{ t }}</li>
+        }
+      </ul>
+    </div>
+  }
+</section>

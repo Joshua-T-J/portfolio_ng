@@ -1,0 +1,36 @@
+<footer class="site-footer container">
+  <div class="site-footer__grid">
+    <nav aria-label="Footer">
+      <p class="tag">Navigate</p>
+      <ul role="list">
+        @for (link of links; track link.fragment) {
+          <li><a class="link" routerLink="/" [fragment]="link.fragment">{{ link.label }}</a></li>
+        }
+      </ul>
+    </nav>
+    <div>
+      <p class="tag">Elsewhere</p>
+      <ul role="list">
+        @for (l of elsewhere; track l.url) {
+          <li><a class="link" [href]="l.url" target="_blank" rel="noopener me">{{ l.label }} ↗</a></li>
+        }
+      </ul>
+    </div>
+    <div class="site-footer__status">
+      <p class="tag">Status</p>
+      @if (settings.availabilityText) {
+        <p class="text-2">{{ settings.availabilityText }}</p>
+      }
+      <button type="button" class="btn btn--primary btn--sm" (click)="backToTop()">
+        Back to top <app-icon name="arrow-up" [size]="16" />
+      </button>
+    </div>
+  </div>
+
+  <p class="site-footer__wordmark" aria-hidden="true">{{ wordmark }}<span class="accent">.</span></p>
+
+  <div class="site-footer__bottom">
+    <span>© {{ year }} {{ settings.name }}</span>
+    <span class="mono">Angular · prerendered · Contentful · Vercel</span>
+  </div>
+</footer>

@@ -43,3 +43,7 @@ Thumbs.db
 
 # Ignore Angular environment files containing secrets
 .env
+
+# Generated at build time by scripts/content-pull.mjs
+/src/content/content.json
+/public/sitemap.xml

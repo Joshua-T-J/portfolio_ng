@@ -1,0 +1,82 @@
+// Design tokens. Components use var(--…) only — never raw colours.
+// Light is the default; dark applies via [data-theme='dark'] or, when no choice is stored,
+// via prefers-color-scheme (the "System" option).
+
+@mixin light {
+  color-scheme: light;
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --ink: #121212;
+  --text-2: #45423b;
+  --muted: #5e5a52;
+  --faint: #8c887e;
+  --line: #e6e3dc;
+  --line-2: #cfcbc2;
+  --soft: #f2f1ec;
+  --tint: #eef1ff;
+  --ok-bg: #e7f6ec;
+  --ok: #14532d;
+  --warn-bg: #fff1dc;
+  --warn: #8a4b00;
+  --err-bg: #fdecea;
+  --err: #b42318;
+  --err-line: #f4c7c1;
+  --band: #121212;
+  --panel: #121212;
+  --accent: #2446e6;
+  --on-accent: #ffffff;
+  --btn: #121212;
+  --on-btn: #ffffff;
+  --shadow: rgba(18, 18, 18, 0.28);
+  --glass: rgba(255, 255, 255, 0.82);
+}
+
+@mixin dark {
+  color-scheme: dark;
+  --bg: #0e0f11;
+  --surface: #16171a;
+  --ink: #f2f1ee;
+  --text-2: #c9c6be;
+  --muted: #a29e95;
+  --faint: #6f6c66;
+  --line: #26272b;
+  --line-2: #3a3b40;
+  --soft: #1e1f23;
+  --tint: #1a2140;
+  --ok-bg: #10291b;
+  --ok: #7ee2a8;
+  --warn-bg: #2e2210;
+  --warn: #ffc774;
+  --err-bg: #3a1714;
+  --err: #ff9a8b;
+  --err-line: #5c2620;
+  --band: #1a1b1f;
+  --panel: #0a0b0c;
+  --accent: #8ea2ff;
+  --on-accent: #0e0f11;
+  --btn: #f2f1ee;
+  --on-btn: #0e0f11;
+  --shadow: rgba(0, 0, 0, 0.6);
+  --glass: rgba(22, 23, 26, 0.82);
+}
+
+:root {
+  @include light;
+  --font-display: 'Bricolage Grotesque Variable', 'Geist Variable', system-ui, sans-serif;
+  --font-body: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --container: 1180px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+:root[data-theme='dark'] {
+  @include dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark;
+  }
+}

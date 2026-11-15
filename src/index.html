@@ -2,18 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>PortfolioNg</title>
+  <title>Joshua T J — Full-Stack Engineer</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon_joshua.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAF8">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0E0F11">
+  <meta name="author" content="Joshua T J">
+  <meta name="format-detection" content="telephone=no">
+  <!-- Apply a saved Light/Dark choice before first paint. "System" = no attribute. -->
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://images.ctfassets.net" crossorigin>
 </head>
 <body>
   <app-root></app-root>
+  <noscript>
+    <p style="padding:24px;font-family:system-ui">This site works best with JavaScript, but all content is readable without it.</p>
+  </noscript>
 </body>
 </html>

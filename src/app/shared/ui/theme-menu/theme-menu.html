@@ -1,0 +1,34 @@
+<button
+  type="button"
+  class="icon-btn"
+  [cdkMenuTriggerFor]="menu"
+  [cdkMenuPosition]="[{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top', offsetY: 10 }]"
+  [attr.aria-label]="triggerLabel()"
+>
+  <app-icon [name]="triggerIcon()" />
+  <app-icon name="chevron-down" [size]="12" [stroke]="2.2" />
+</button>
+
+<ng-template #menu>
+  <div class="theme-menu" cdkMenu aria-label="Theme">
+    <p class="tag theme-menu__title" aria-hidden="true">Appearance</p>
+    @for (opt of options; track opt.value) {
+      <button
+        type="button"
+        class="theme-menu__item"
+        cdkMenuItemRadio
+        [cdkMenuItemChecked]="theme.preference() === opt.value"
+        (cdkMenuItemTriggered)="select(opt.value)"
+      >
+        <span class="theme-menu__glyph"><app-icon [name]="opt.icon" [size]="16" /></span>
+        <span class="theme-menu__text">
+          <span class="theme-menu__label">{{ opt.label }}</span>
+          <span class="theme-menu__hint">{{ opt.hint }}</span>
+        </span>
+        @if (theme.preference() === opt.value) {
+          <app-icon class="theme-menu__check" name="check" [size]="16" [stroke]="2.2" />
+        }
+      </button>
+    }
+  </div>
+</ng-template>
