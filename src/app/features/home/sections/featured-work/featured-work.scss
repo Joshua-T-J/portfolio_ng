@@ -1,0 +1,131 @@
+.stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case {
+  position: sticky;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -40px var(--shadow);
+}
+
+.case__body {
+  flex: 1 1 460px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(28px, 4vw, 44px);
+}
+
+.case__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.case__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.case__summary {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.case__highlights {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.case__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+}
+
+.case__visual {
+  flex: 1 1 400px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--tint);
+
+  &--dark {
+    background: var(--panel);
+
+    .layers__item {
+      background: #1c1c1c;
+      border-color: #2e2e2e;
+      color: #f2f1ee;
+    }
+  }
+}
+
+/* With a cover: neutral panel so the cover's own colour reads, plus a lift. */
+.case__visual--image {
+  background: var(--soft);
+
+  .case__image {
+    box-shadow: 0 24px 48px -28px var(--shadow);
+  }
+}
+
+.case__image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.layers {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.layers__item {
+  padding: 16px 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.layers__link {
+  align-self: center;
+  width: 1.5px;
+  height: 18px;
+  background: var(--accent);
+}
+
+@media (max-width: 860px), (prefers-reduced-motion: reduce) {
+  .case {
+    position: static;
+  }
+}

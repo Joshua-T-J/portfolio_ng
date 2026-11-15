@@ -1,0 +1,31 @@
+@let p = project();
+<article class="pcard card card--lift" [attr.aria-labelledby]="'pc-' + p.slug">
+  <div class="pcard__media">
+    @if (p.coverImage; as img) {
+      <img [ngSrc]="img.url" [alt]="img.alt" fill sizes="(max-width: 700px) 100vw, 33vw" [loaderParams]="{ ratio: 16 / 10 }" />
+    } @else {
+      <span class="pcard__monogram" aria-hidden="true">{{ p.title.charAt(0) }}</span>
+    }
+  </div>
+  <div class="pcard__body">
+    <div class="pcard__top">
+      <span class="chip pcard__badge" [class.chip--ok]="isClient()" [attr.title]="badge()">{{ badge() }}</span>
+      <span class="mono muted pcard__meta" [attr.title]="meta()">{{ meta() }}</span>
+    </div>
+    <h3 class="pcard__title" [id]="'pc-' + p.slug" [attr.title]="p.title">
+      <a class="pcard__stretched" [routerLink]="['/projects', p.slug]">{{ p.title }}</a>
+    </h3>
+    <p class="pcard__summary">{{ p.summary }}</p>
+    <div class="pcard__links">
+      @if (p.liveUrl) {
+        <a class="link" [href]="p.liveUrl" target="_blank" rel="noopener">Live ↗</a>
+      }
+      @if (p.repoUrl) {
+        <a class="link" [href]="p.repoUrl" target="_blank" rel="noopener">Source ↗</a>
+      }
+      @if (!p.liveUrl && !p.repoUrl) {
+        <span class="pcard__more muted">Read more →</span>
+      }
+    </div>
+  </div>
+</article>

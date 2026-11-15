@@ -3,24 +3,21 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./components/main-page/main-page').then((m) => m.MainPage),
+    loadComponent: () => import('./features/home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'project-details/:id',
+    path: 'projects/:slug',
     loadComponent: () =>
-      import('./components/projects/project-details/project-details').then((m) => m.ProjectDetails),
-    title: 'Joshua T J | Software Engineer | Portfolio - Project Details',
+      import('./features/project-detail/project-detail.page').then((m) => m.ProjectDetailPage),
+  },
+  // Old URL scheme (/project-details/<category>) → home. Vercel also redirects it (vercel.json).
+  { path: 'project-details/:id', redirectTo: '/', pathMatch: 'full' },
+  {
+    path: '404',
+    loadComponent: () => import('./features/not-found/not-found.page').then((m) => m.NotFoundPage),
   },
   {
     path: '**',
-    loadComponent: () =>
-      import('./components/page-not-found/page-not-found').then((m) => m.PageNotFound),
-    title: 'Joshua T J | Software Engineer | Portfolio - Page Not Found',
-  },
-  {
-    path: 'not-found',
-    loadComponent: () =>
-      import('./components/page-not-found/page-not-found').then((m) => m.PageNotFound),
-    title: 'Joshua T J | Software Engineer | Portfolio - Page Not Found',
+    loadComponent: () => import('./features/not-found/not-found.page').then((m) => m.NotFoundPage),
   },
 ];

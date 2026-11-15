@@ -1,0 +1,378 @@
+{
+  "settings": {
+    "siteUrl": "https://joshuatj.vercel.app",
+    "name": "Joshua T J",
+    "headline": "Full-stack engineer.",
+    "rotatingWords": [
+      "Angular.",
+      ".NET APIs.",
+      "TypeScript."
+    ],
+    "intro": "I'm a Software Engineer at VLogic Innovations with 3+ years building production web software end to end: Angular front-ends, ASP.NET APIs and SQL Server. On my own time I build open-source tools like GistVault and experiment with ML services like FaceMatch Pro.",
+    "availabilityText": "Open to full-stack & frontend roles · Kerala, India · Remote-friendly",
+    "location": "Kollam, Kerala, India",
+    "timezone": "IST (UTC+5:30)",
+    "email": "joshuajose312@gmail.com",
+    "phone": "+91 89212 33481",
+    "githubUrl": "https://github.com/Joshua-T-J",
+    "linkedinUrl": "https://www.linkedin.com/in/joshua-t-j-68121b22a/",
+    "instagramUrl": "https://www.instagram.com/joshua.t_j/",
+    "photographyUrl": "https://jtjcreations.vercel.app/",
+    "resumeUrl": "https://assets.ctfassets.net/84j8ulenxt5c/4qGE4pJZMQitTWeT5jjLdt/0b9cdbf425ad09732d57501ba89ef32b/Joshua_TJ_Resume.pdf",
+    "aboutTitle": "Engineer first. Photographer on weekends.",
+    "about": "I'm from Kollam, Kerala. I like taking a messy workflow and turning it into a fast, typed, tested app — and I care about the details users notice: spacing, keyboard support, load time. Photography and video editing keep that eye sharp.",
+    "learningNote": "Completed GitHub Skills tracks in 2026 and merged open-source pull requests.",
+    "learningTopics": [
+      "GitHub Actions",
+      "CodeQL",
+      "Supply-chain security",
+      "Docker images",
+      "Codespaces",
+      "GitHub Copilot"
+    ],
+    "stats": [
+      {
+        "value": "3+ yrs",
+        "label": "Shipping production software professionally"
+      },
+      {
+        "value": "v16 → v22",
+        "label": "Angular versions I've shipped on"
+      },
+      {
+        "value": "12+",
+        "label": "Projects — 2 open-source, 3 for real clients"
+      },
+      {
+        "value": "3 langs",
+        "label": "TypeScript, C# and Python in one stack"
+      }
+    ],
+    "seoTitle": "Joshua T J — Full-Stack Engineer (Angular, .NET, TypeScript)",
+    "seoDescription": "Full-stack engineer in Kerala, India building production web apps with Angular, ASP.NET Core and SQL Server. Open-source projects, case studies and résumé."
+  },
+  "projects": [
+    {
+      "highlights": [
+        "Built-in secret scanner blocks API keys and tokens before they reach a gist.",
+        "{{host}} placeholders are filled at copy time and never stored.",
+        "Keyboard-first, built to WCAG 2.2 AA and checked with axe.",
+        "Modern Angular: standalone, signals, Signal Forms, strict typing, Vitest and a CI security check."
+      ],
+      "featured": true,
+      "status": "Live",
+      "slug": "gistvault",
+      "title": "GistVault",
+      "category": "Open source",
+      "order": 1,
+      "summary": "Save the shell commands you look up twice — in a secret gist on your own GitHub account. No server, no database: the browser talks to GitHub directly.",
+      "techStack": [
+        "Angular 22",
+        "TypeScript",
+        "GitHub API",
+        "Vitest",
+        "Vercel"
+      ],
+      "liveUrl": "https://gistvault.vercel.app",
+      "repoUrl": "https://github.com/Joshua-T-J/gistvault",
+      "seoDescription": "GistVault: an open-source Angular app that stores reusable shell commands in a secret GitHub gist, with a secret scanner and WCAG 2.2 AA accessibility.",
+      "coverImage": {
+        "url": "/images/projects/gistvault.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "GistVault home page: the commands you look up twice, saved in your own GitHub"
+      }
+    },
+    {
+      "highlights": [
+        "Angular 21 UI → ASP.NET Core (.NET 10) API → Python FastAPI face service.",
+        "InsightFace SCRFD detection + ArcFace embeddings; detector size and thresholds tuned so small faces in group photos are not missed.",
+        "People, images and embeddings persisted in SQL Server."
+      ],
+      "featured": true,
+      "status": "In progress",
+      "slug": "facematch-pro",
+      "title": "FaceMatch Pro",
+      "category": "Personal",
+      "order": 2,
+      "summary": "Enrol people, detect faces in single or group photos and match them by embedding similarity — three services working together.",
+      "techStack": [
+        "Angular 21",
+        "ASP.NET Core",
+        "FastAPI",
+        "InsightFace",
+        "SQL Server"
+      ],
+      "repoUrl": "https://github.com/Joshua-T-J/face-match-pro",
+      "seoDescription": "FaceMatch Pro: face recognition with an Angular 21 UI, an ASP.NET Core (.NET 10) API and a Python FastAPI service using InsightFace embeddings."
+    },
+    {
+      "highlights": [
+        "Feature modules and data-bound UIs in Angular, kept current from v16 to v21.",
+        "Server-side components and REST APIs in ASP.NET; SQL for data access.",
+        "Production bug fixing with an eye on scalability, security and performance."
+      ],
+      "featured": true,
+      "status": "Live",
+      "slug": "vlogic-enterprise-platform",
+      "title": "Enterprise web platform at VLogic",
+      "category": "Work",
+      "order": 3,
+      "summary": "At VLogic Innovations I work on VLFM NG, the company's next-generation product, in a cross-functional team — shipping features across the full stack.",
+      "techStack": [
+        "Angular",
+        "ASP.NET",
+        "C#",
+        "SQL Server",
+        "Azure DevOps"
+      ]
+    },
+    {
+      "highlights": [],
+      "featured": false,
+      "status": "Live",
+      "slug": "hsu-wage-calculator",
+      "title": "HSU Wage Calculator",
+      "category": "Client",
+      "clientType": "Government",
+      "order": 10,
+      "summary": "Wage calculation for Handloom School Uniform societies under the District Industries Centre, Kollam — replacing manual wage sheets.",
+      "techStack": [
+        "JavaScript",
+        "Node.js",
+        "MongoDB"
+      ],
+      "liveUrl": "https://dic-project.github.io/DIC-FRONT_END/index.html",
+      "coverImage": {
+        "url": "/images/projects/hsu-wage-calculator.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "HSU Wage Calculator team member screen"
+      }
+    },
+    {
+      "highlights": [],
+      "featured": false,
+      "status": "Live",
+      "slug": "jtj-creations",
+      "title": "JTJ Creations",
+      "category": "Client",
+      "clientType": "Business",
+      "order": 11,
+      "summary": "Business website and photography portfolio — category-driven galleries tuned for fast image loading.",
+      "techStack": [
+        "Angular 20",
+        "TypeScript",
+        "SCSS"
+      ],
+      "liveUrl": "https://jtjcreations.vercel.app/",
+      "repoUrl": "https://github.com/Joshua-T-J/jtjcreations",
+      "coverImage": {
+        "url": "/images/projects/jtj-creations.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "JTJ Creations photography studio home page"
+      }
+    },
+    {
+      "highlights": [],
+      "featured": false,
+      "status": "Live",
+      "slug": "skye-weather",
+      "title": "Skye Weather",
+      "category": "Personal",
+      "order": 12,
+      "summary": "Search any city for live temperature, humidity and wind from a real-time weather API.",
+      "techStack": [
+        "Angular",
+        "RxJS",
+        "REST API"
+      ],
+      "liveUrl": "https://skyeweather.vercel.app/",
+      "repoUrl": "https://github.com/Joshua-T-J/skyeweather",
+      "coverImage": {
+        "url": "/images/projects/skye-weather.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "Skye Weather dashboard with current conditions and 5-day forecast"
+      }
+    },
+    {
+      "highlights": [],
+      "featured": false,
+      "status": "Live",
+      "slug": "ocym-website",
+      "title": "OCYM Website",
+      "category": "Client",
+      "clientType": "Non-profit",
+      "order": 13,
+      "summary": "Responsive site for the Orthodox Christian Youth Movement, St Stephen's Church, Pandithitta.",
+      "techStack": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Bootstrap"
+      ],
+      "liveUrl": "https://joshua-t-j.github.io/ocym-website/",
+      "coverImage": {
+        "url": "/images/projects/ocym-website.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "OCYM Pandithitta website home page"
+      }
+    },
+    {
+      "highlights": [],
+      "featured": false,
+      "status": "Live",
+      "slug": "cocktails-db",
+      "title": "The Cocktails DB",
+      "category": "Learning",
+      "order": 20,
+      "summary": "Search cocktails by name and see ingredients, measures and preparation, fetched from a public API.",
+      "techStack": [
+        "React",
+        "Vite",
+        "REST API"
+      ],
+      "liveUrl": "https://cocktails-vite.netlify.app/",
+      "repoUrl": "https://github.com/Joshua-T-J/cocktails-react-project",
+      "coverImage": {
+        "url": "/images/projects/cocktails-db.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "The Cocktails DB showing cocktail cards"
+      }
+    },
+    {
+      "highlights": [],
+      "featured": false,
+      "status": "Live",
+      "slug": "color-shades-generator",
+      "title": "Color Shades Generator",
+      "category": "Learning",
+      "order": 21,
+      "summary": "Pick a base colour and get its full range of tints and shades, ready to copy.",
+      "techStack": [
+        "React",
+        "CSS"
+      ],
+      "liveUrl": "https://react-colorshadesgenerator.netlify.app/",
+      "repoUrl": "https://github.com/Joshua-T-J/Color-Shades-Generator",
+      "coverImage": {
+        "url": "/images/projects/color-shades-generator.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "Color Shades Generator showing tints and shades of a colour"
+      }
+    },
+    {
+      "highlights": [],
+      "featured": false,
+      "status": "Live",
+      "slug": "paragraph-generator",
+      "title": "Paragraph Generator",
+      "category": "Learning",
+      "order": 22,
+      "summary": "Generate placeholder paragraphs on demand for web and design mock-ups.",
+      "techStack": [
+        "React",
+        "CSS"
+      ],
+      "liveUrl": "https://dummyparagraph-generator.netlify.app/",
+      "repoUrl": "https://github.com/Joshua-T-J/Paragraph-Generator",
+      "coverImage": {
+        "url": "/images/projects/paragraph-generator.webp",
+        "width": 1200,
+        "height": 750,
+        "alt": "Dummy Paragraph Generator with three generated paragraphs"
+      }
+    }
+  ],
+  "experience": [
+    {
+      "role": "Software Engineer",
+      "company": "VLogic Innovations Pvt. Ltd",
+      "companyUrl": "https://www.vlogicsystems.com/",
+      "employmentType": "Full-time",
+      "startDate": "2023-01-01",
+      "location": "Kerala, India",
+      "summary": "Full-stack feature work on the company's next-generation product: Angular front-end, ASP.NET APIs and SQL Server.",
+      "highlights": [],
+      "techStack": [
+        "Angular",
+        "ASP.NET",
+        "C#",
+        "SQL Server",
+        "Azure DevOps"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "qualification": "B.Tech, Computer Science & Engineering",
+      "institution": "Baselios Mathews II College of Engineering, Sasthamcotta",
+      "board": "APJ Abdul Kalam Technological University",
+      "startYear": 2018,
+      "endYear": 2022,
+      "grade": "CGPA 7.65"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Learning Web Development from Scratch: The Ultimate Bootcamp",
+      "issuer": "Eduonix",
+      "issuedOn": "2022-01-27"
+    }
+  ],
+  "skillGroups": [
+    {
+      "title": "Frontend",
+      "icon": "frontend",
+      "order": 1,
+      "skills": [
+        "Angular 16–22",
+        "TypeScript",
+        "Signals",
+        "RxJS",
+        "Angular Material",
+        "SCSS",
+        "React"
+      ]
+    },
+    {
+      "title": "Backend & data",
+      "icon": "backend",
+      "order": 2,
+      "skills": [
+        "C#",
+        "ASP.NET Core",
+        "REST APIs",
+        "Entity Framework",
+        "SQL Server",
+        "Python · FastAPI",
+        "Node.js",
+        "MongoDB"
+      ]
+    },
+    {
+      "title": "Quality, tooling & delivery",
+      "icon": "tooling",
+      "order": 3,
+      "skills": [
+        "Vitest",
+        "axe / WCAG 2.2",
+        "Git",
+        "GitHub Actions",
+        "Azure DevOps",
+        "Postman",
+        "Vercel",
+        "Azure"
+      ]
+    }
+  ],
+  "config": {
+    "generatedAt": "seed",
+    "source": "seed"
+  }
+}

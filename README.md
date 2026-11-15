@@ -1,59 +1,62 @@
-# PortfolioNg
+# Portfolio — Joshua T J
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
+Angular 20 portfolio, prerendered to static HTML, content from Contentful (Free plan), deployed on Vercel.
 
-## Development server
+## How it works
 
-To start a local development server, run:
-
-```bash
-ng serve
+```
+Contentful ──publish──▶ webhook ──▶ Vercel deploy hook
+                                     │
+            npm run build            ▼
+            ├─ prebuild:  scripts/content-pull.mjs   (≈6 Contentful API calls per build)
+            │             → src/content/content.json (validated with zod; build fails on bad content)
+            │             → public/sitemap.xml
+            ├─ ng build:  outputMode "static" → prerenders /, /projects/<slug>, /404
+            └─ postbuild: copies 404/index.html → 404.html
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Visitors never call Contentful, and no API token ships to the browser.
 
-## Code scaffolding
+The app imports content through the `@content` alias (tsconfig `paths`): `src/content/content.json` if it exists,
+otherwise the committed seed. So a plain `ng serve` still works; run `npm run content:pull` to see live Contentful data.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Commands
 
-```bash
-ng generate component component-name
+| Command | What it does |
+| --- | --- |
+| `npm start` | Pulls content, then runs the dev server on http://localhost:4200 |
+| `npm run build` | Pulls content, prerenders every page into `dist/portfolio-ng/browser` |
+| `npm test` | Unit tests (Karma, headless Chrome) |
+| `npm run content:pull` | Refreshes `src/content/content.json` only |
+| `npm run contentful:migrate` | Creates the content model in the `staging` environment |
+| `npm run contentful:migrate -- --seed` | …and fills it from `content/content.seed.json` |
+| `npm run contentful:migrate -- --env master --seed` | Same, on `master` |
+
+## Environment variables
+
+Put these in `.env` locally and in Vercel → Settings → Environment Variables.
+
+| Variable | Used by | Notes |
+| --- | --- | --- |
+| `CONTENTFUL_SPACE_ID` | build, migrate | `84j8ulenxt5c` |
+| `CONTENTFUL_DELIVERY_TOKEN` | build | Read-only Content Delivery token. Not set → the committed seed content is used |
+| `CONTENTFUL_ENVIRONMENT` | build | Optional, default `master` |
+| `CONTENTFUL_MANAGEMENT_TOKEN` | migrate | Personal CMA token. **Local only — never in Vercel or Git** |
+| `CONTACT_FORM_URL` | build | Google Apps Script endpoint (falls back to `NG_APP_GOOGLE_SHEETS_URL`). Not set → the form becomes an e-mail button |
+| `SITE_URL` | build | Optional, default `https://joshuatj.vercel.app` (canonical URLs, sitemap) |
+
+## Code map
+
+```
+scripts/                 content pull, schema, Contentful mappers, migration runner, postbuild
+contentful/migrations/   one file per content type (with field limits that protect the layout)
+content/content.seed.json  fallback content, also used to seed Contentful
+src/app/core/            content (models, ContentSource, ContentStore), theme, SEO, contact, image loader
+src/app/layout/          site header (theme menu, mobile menu) and footer
+src/app/features/        home page sections, project detail page, 404
+src/app/shared/ui/       icon, theme menu, section header, tech chips
+src/styles/              tokens (light/dark), base, shared components, motion
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Theme: System (default) / Light / Dark. "System" follows `prefers-color-scheme`; an explicit choice is stored in
+`localStorage` and applied by an inline script in `index.html` before first paint.

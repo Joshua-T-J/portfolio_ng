@@ -1,0 +1,70 @@
+<section id="contact" class="contact-wrap" aria-labelledby="contact-title">
+  <div class="band reveal">
+    <div class="band__intro">
+      <span class="tag tag--on-dark">06 · Contact</span>
+      <h2 id="contact-title" class="band__title">Have a role or project in mind?</h2>
+      <p class="band__lead">I reply within a day. The one-page résumé has everything a hiring team needs.</p>
+      <div class="band__cta">
+        <a class="btn btn--light" [href]="s.resumeUrl" target="_blank" rel="noopener">
+          Download résumé <app-icon name="download" [size]="16" />
+        </a>
+        <a class="btn btn--ghost-dark" [href]="mailtoHref">Email me</a>
+      </div>
+      <address class="band__details">
+        <a class="break-any" [href]="'mailto:' + s.email">{{ s.email }}</a>
+        @if (s.phone) {
+        <a [href]="'tel:' + s.phone.replaceAll(' ', '')">{{ s.phone }}</a>
+        }
+        <span>{{ s.location }} · {{ s.timezone }}</span>
+      </address>
+    </div>
+
+    @if (canSubmit) {
+    <form class="band__form" [formGroup]="form" (ngSubmit)="submit()" novalidate aria-label="Contact form">
+      <div class="form-row">
+        <div class="field">
+          <label for="c-name">Name</label>
+          <input id="c-name" type="text" formControlName="name" autocomplete="name" [attr.aria-invalid]="invalid('name')" aria-describedby="c-name-err" />
+          @if (invalid('name')) {
+          <span id="c-name-err" class="field__error">Please enter your name.</span>
+          }
+        </div>
+        <div class="field">
+          <label for="c-email">Email</label>
+          <input id="c-email" type="email" formControlName="email" autocomplete="email" [attr.aria-invalid]="invalid('email')" aria-describedby="c-email-err" />
+          @if (invalid('email')) {
+          <span id="c-email-err" class="field__error">Please enter a valid e-mail address.</span>
+          }
+        </div>
+      </div>
+      <div class="field">
+        <label for="c-subject">Company &amp; role <span class="field__opt">(optional)</span></label>
+        <input id="c-subject" type="text" formControlName="subject" autocomplete="organization" placeholder="Company — Senior Angular Developer" />
+      </div>
+      <div class="field">
+        <label for="c-message">Message</label>
+        <textarea id="c-message" rows="5" formControlName="message" [attr.aria-invalid]="invalid('message')" aria-describedby="c-message-err"></textarea>
+        @if (invalid('message')) {
+        <span id="c-message-err" class="field__error">A few words about the role or project, please (10+ characters).</span>
+        }
+      </div>
+      <div class="field field--trap" aria-hidden="true">
+        <label for="c-website">Website</label>
+        <input id="c-website" type="text" formControlName="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="band__submit">
+        <button type="submit" class="btn btn--light" [disabled]="status() === 'sending'" [attr.aria-busy]="status() === 'sending'">
+          {{ status() === 'sending' ? 'Sending…' : 'Send message' }}
+          <app-icon class="btn__arrow" name="arrow-right" [size]="16" />
+        </button>
+      </div>
+    </form>
+    } @else {
+    <div class="band__form band__fallback">
+      <p>Prefer e-mail? Write to me directly — I read everything.</p>
+      <a class="btn btn--light" [href]="mailtoHref">{{ s.email }}</a>
+    </div>
+    }
+  </div>
+</section>

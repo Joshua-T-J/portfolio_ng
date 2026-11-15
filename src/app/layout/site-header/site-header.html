@@ -1,0 +1,47 @@
+<header class="site-header">
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" routerLink="/" aria-label="{{ settings.name }} — home">
+      <span class="brand__mark" aria-hidden="true">{{ settings.name.charAt(0) }}</span>
+      <span class="brand__name">{{ settings.name }}</span>
+    </a>
+
+    <ul class="site-nav__links" role="list">
+      @for (link of links; track link.fragment) {
+        <li><a class="nav-link" routerLink="/" [fragment]="link.fragment">{{ link.label }}</a></li>
+      }
+    </ul>
+
+    <div class="site-nav__actions">
+      <app-theme-menu />
+      <a class="btn btn--outline btn--sm hide-sm" [href]="settings.resumeUrl" target="_blank" rel="noopener">Résumé</a>
+      <a class="btn btn--primary btn--sm hide-sm" routerLink="/" fragment="contact">
+        Let's talk <app-icon class="btn__arrow" name="arrow-right" [size]="16" />
+      </a>
+      <button
+        type="button"
+        class="icon-btn show-sm"
+        [attr.aria-expanded]="mobileOpen()"
+        aria-controls="mobile-menu"
+        [attr.aria-label]="mobileOpen() ? 'Close menu' : 'Open menu'"
+        (click)="toggleMobile()"
+      >
+        <app-icon [name]="mobileOpen() ? 'close' : 'menu'" />
+      </button>
+    </div>
+
+    @if (mobileOpen()) {
+      <div id="mobile-menu" class="mobile-menu show-sm">
+        <ul role="list">
+          @for (link of links; track link.fragment) {
+            <li>
+              <a class="mobile-menu__link" routerLink="/" [fragment]="link.fragment" (click)="closeMobile()">{{
+                link.label
+              }}</a>
+            </li>
+          }
+        </ul>
+        <a class="btn btn--outline" [href]="settings.resumeUrl" target="_blank" rel="noopener">Résumé (PDF)</a>
+      </div>
+    }
+  </nav>
+</header>

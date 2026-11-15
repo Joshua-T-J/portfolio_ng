@@ -1,0 +1,150 @@
+.contact-wrap {
+  padding: 120px 16px 0;
+  scroll-margin-top: 80px;
+}
+
+/* Always dark, in both themes: the strongest call to action on the page. */
+.band {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 56px;
+  padding: clamp(40px, 6vw, 72px) clamp(24px, 5vw, 56px);
+  border-radius: 32px;
+  border: 1px solid var(--line);
+  background: var(--band);
+  color: #ffffff;
+}
+
+.band__intro,
+.band__form {
+  flex: 1 1 380px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.band__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5.4vw, 60px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.band__lead {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #c4c4c4;
+}
+
+.band__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.band__details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-style: normal;
+  font-size: 15px;
+  color: #c4c4c4;
+
+  a {
+    color: #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 14px;
+    color: #d6d6d6;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #333333;
+    background: #1b1b1b;
+    color: #ffffff;
+    font: inherit;
+    font-size: 15px;
+    resize: vertical;
+
+    &::placeholder {
+      color: #8e8e8e;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #8ea2ff;
+      outline-offset: 1px;
+      border-color: #8ea2ff;
+    }
+
+    &[aria-invalid='true'] {
+      border-color: #ff8a70;
+    }
+  }
+}
+
+.field__opt {
+  color: #a8a8a8;
+}
+
+.field__error {
+  font-size: 13px;
+  color: #ffb4a3;
+}
+
+.field--trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.band__submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.band__fallback {
+  justify-content: center;
+  align-items: flex-start;
+
+  p {
+    margin: 0;
+    color: #c4c4c4;
+    font-size: 17px;
+  }
+}

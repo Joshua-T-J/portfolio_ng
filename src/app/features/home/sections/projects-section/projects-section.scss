@@ -1,0 +1,46 @@
+.grid-auto {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  /* Stretch each card to the row height. */
+  > li {
+    display: flex;
+  }
+}
+
+.more-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.learning {
+  margin-top: 40px;
+  padding: 28px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: var(--soft);
+}
+
+.learning__text {
+  flex: 1 1 320px;
+
+  p {
+    margin: 6px 0 0;
+    font-size: 15px;
+  }
+}
+
+.learning__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.learning__chips {
+  flex: 1 1 380px;
+}
