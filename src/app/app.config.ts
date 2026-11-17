@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, withNoIncrementalHydration } from '@angular/platform-browser';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions({ skipInitialTransition: true }),
     ),
     provideHttpClient(withFetch()),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     provideContentfulImageLoader(),
     { provide: ContentSource, useClass: StaticContentSource },
   ],
