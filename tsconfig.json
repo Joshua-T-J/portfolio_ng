@@ -15,9 +15,8 @@
     "target": "ES2022",
     "module": "preserve",
     "resolveJsonModule": true,
-    "baseUrl": ".",
     "paths": {
-      "@content": ["src/content/content.json", "content/content.seed.json"]
+      "@content": ["./src/content/content.json", "./content/content.seed.json"]
     }
   },
   "angularCompilerOptions": {
